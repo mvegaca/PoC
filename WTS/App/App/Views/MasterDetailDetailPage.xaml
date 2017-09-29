@@ -9,13 +9,9 @@
     xmlns:views="using:App.Views"
     mc:Ignorable="d">
 
-    <Grid
-        x:Name="ContentArea"
-        Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
-
+    <Grid>
         <views:MasterDetailDetailControl
-            MasterMenuItem="{x:Bind ViewModel.Item}"
-            Margin="{StaticResource MediumLeftRightMargin}" />
+            MasterMenuItem="{x:Bind ViewModel.Item}"/>
 
         <!--  Adaptive triggers  -->
         <VisualStateManager.VisualStateGroups>

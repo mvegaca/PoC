@@ -16,48 +16,39 @@
     </Page.Transitions>
     <Page.Resources>
         <DataTemplate x:Key="MasterListViewItemTemplate" x:DataType="model:SampleOrder">
-            <Grid Margin="{StaticResource MediumLeftTopRightBottomMargin}" >
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1">
-                    <RelativePanel>
-                        <Rectangle Stroke="Gray"
-                             Fill="LightGray"
-                             Width="48"
-                             Height="48"
-                             StrokeThickness="0" 
-                             Name="border"
-                             RelativePanel.AlignVerticalCenterWithPanel="True"/>
-                        <FontIcon
-                            Name="icon"
-                            Tag="{x:Bind HashIdentIcon}"
-                            FontSize="35"
-                            Glyph="{x:Bind SymbolAsChar}" VerticalAlignment="Top" 
-                            RelativePanel.AlignVerticalCenterWith="border"
-                            RelativePanel.AlignHorizontalCenterWith="border"/>
-
-                        <StackPanel RelativePanel.AlignVerticalCenterWithPanel="True" Margin="12,0,0,0" RelativePanel.RightOf="border">
-                            <TextBlock
-                                Name="title"
-                                RelativePanel.RightOf="border"
-                                Text="{x:Bind Company}"
-                                Tag="{x:Bind HashIdentTitle}"
-                                Style="{StaticResource BaseTextBlockStyle}"/>
-                            <TextBlock
-                                Name="subtitle"
-                                RelativePanel.Below="title"
-                                RelativePanel.AlignLeftWith="title"
-                                Text="{x:Bind Status}"
-                                Style="{StaticResource BodyTextBlockStyle}"/>
-                        </StackPanel>
-                    </RelativePanel>
-                </StackPanel>
+            <Grid Height="72">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <FontIcon
+                    Grid.Column="0"
+                    Margin="16,8,8,0"
+                    Tag="{x:Bind HashIdentIcon}"
+                    FontSize="25"
+                    Glyph="{x:Bind SymbolAsChar}" VerticalAlignment="Top" />
+                <Grid Grid.Column="1" Margin="0,8,20,8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock                        
+                        Grid.Row="0"
+                        MaxLines="1"                        
+                        Text="{x:Bind Company}"
+                        Tag="{x:Bind HashIdentTitle}"
+                        Style="{ThemeResource ListTitleStyle}"/>
+                    <TextBlock
+                        Grid.Row="1"
+                        MaxLines="2"
+                        Text="{x:Bind Status}"
+                        Style="{StaticResource ListSubTitleStyle}"/>
+                </Grid>
             </Grid>
         </DataTemplate>
     </Page.Resources>
 
-    <Grid
-        x:Name="ContentArea"
-        Padding="12,0,12,0">
-
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition x:Name="TitleRow" Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -72,6 +63,7 @@
             x:Name="TitlePage"
             x:Uid="MasterDetailPage_Title"
             Grid.ColumnSpan="2"
+            Margin="12,12,12,7"
             Style="{StaticResource PageTitleStyle}"
             Visibility="Collapsed"/>
 
@@ -87,9 +79,9 @@
             <TextBlock
                 x:Name="Title"
                 x:Uid="MasterDetailPage_Title"
+                Margin="12,12,12,7"
                 Style="{StaticResource PageTitleStyle}" />
 
-            <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your master content.-->
             <ListView
                 x:Name="MasterListView"
                 Grid.Row="1"
@@ -116,7 +108,7 @@
             x:Name="DetailContentPresenter"
             Grid.Row="1"
             Grid.Column="1"
-            Padding="24,0,0,0">
+            Padding="0,0,0,0">
 
             <views:MasterDetailDetailControl
                 x:Name="DetailControl"
@@ -136,7 +128,6 @@
                         <AdaptiveTrigger MinWindowWidth="640"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ContentArea.Padding" Value="12,0,12,0"/>
                         <Setter Target="MasterColumn.Width" Value="296" />
                     </VisualState.Setters>
                 </VisualState>
@@ -145,17 +136,14 @@
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="TitlePage.Margin" Value="48,0,12,7"/>
                         <Setter Target="TitleRow.Height" Value="48"/>
                         <Setter Target="MasterRow.Height" Value="Auto"/>
                         <Setter Target="TitlePage.Visibility" Value="Visible"/>
                         <Setter Target="Title.Visibility" Value="Collapsed"/>
-                        <Setter Target="ContentArea.Padding" Value="12,0,12,0"/>
                         <Setter Target="MasterColumn.Width" Value="*" />
                         <Setter Target="DetailColumn.Width" Value="0" />
                         <Setter Target="MasterListView.SelectionMode" Value="None" />
                         <Setter Target="MasterArea.Background" Value="{ThemeResource SystemControlBackgroundAltHighBrush}"/>
-                        <Setter Target="MasterListView.Margin" Value="-12,0"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
