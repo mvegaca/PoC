@@ -1,0 +1,46 @@
+﻿<Page
+    x:Class="ShareSourceSample.Views.ShareSourcePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Style="{StaticResource PageStyle}"
+    mc:Ignorable="d">
+    <Grid
+        x:Name="ContentArea"
+        Margin="{StaticResource MediumLeftRightMargin}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="TitleRow" Height="48"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            x:Name="TitlePage"
+            x:Uid="ShareSource_Title"
+            Style="{StaticResource PageTitleStyle}" />
+
+        <StackPanel Grid.Row="1">
+            <TextBlock x:Uid="ShareSource_Description" Margin="0,12,0,0" Style="{StaticResource BodyTextStyle}" />
+            <Image x:Uid="ShareSource_Image" Margin="0,24,0,0" HorizontalAlignment="Left" Stretch="None" />
+            <HyperlinkButton x:Uid="ShareSource_GitHubLink" Margin="0,4,0,0">
+                <TextBlock x:Uid="ShareSource_GitHubText" Style="{StaticResource BodyTextStyle}" />
+            </HyperlinkButton>
+            <TextBlock x:Uid="ShareSource_ShareTitle" Margin="0,12,0,0" Style="{StaticResource SubtitleTextBlockStyle}" />
+            <TextBlock x:Uid="ShareSource_ShareDescription" Margin="0,4,0,0" Style="{StaticResource CaptionTextBlockStyle}" />
+            <ComboBox Width="150" Margin="0,16,0,0" ItemsSource="{x:Bind ViewModel.ShareOptions}" SelectedItem="{x:Bind ViewModel.SelectedOption, Mode=TwoWay}"/>
+
+
+            <Button Margin="0,12,0,0" Width="150">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE72D;" FontSize="25" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="ShareSource_ShareButtonText" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+
+
+        </StackPanel>
+    </Grid>
+</Page>
