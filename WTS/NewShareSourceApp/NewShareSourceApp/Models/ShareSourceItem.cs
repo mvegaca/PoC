@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using Windows.Storage;
 
-namespace NewShareSourceApp.Services
+namespace NewShareSourceApp.Models
 {
     internal enum ShareSourceItemType
     {
@@ -42,7 +42,7 @@ namespace NewShareSourceApp.Services
             DataType = dataType;
         }
 
-        public static ShareSourceItem FromText(string text)
+        internal static ShareSourceItem FromText(string text)
         {
             return new ShareSourceItem(ShareSourceItemType.Text)
             {
@@ -50,7 +50,7 @@ namespace NewShareSourceApp.Services
             };
         }
 
-        public static ShareSourceItem FromWebLink(Uri webLink)
+        internal static ShareSourceItem FromWebLink(Uri webLink)
         {
             return new ShareSourceItem(ShareSourceItemType.WebLink)
             {
@@ -58,7 +58,7 @@ namespace NewShareSourceApp.Services
             };
         }
 
-        public static ShareSourceItem FromApplicationLink(Uri applicationLink)
+        internal static ShareSourceItem FromApplicationLink(Uri applicationLink)
         {
             return new ShareSourceItem(ShareSourceItemType.ApplicationLink)
             {
@@ -66,7 +66,7 @@ namespace NewShareSourceApp.Services
             };
         }
 
-        public static ShareSourceItem FromHtml(string html)
+        internal static ShareSourceItem FromHtml(string html)
         {
             return new ShareSourceItem(ShareSourceItemType.Html)
             {
@@ -74,7 +74,7 @@ namespace NewShareSourceApp.Services
             };
         }
 
-        public static ShareSourceItem FromImage(StorageFile image)
+        internal static ShareSourceItem FromImage(StorageFile image)
         {
             return new ShareSourceItem(ShareSourceItemType.Image)
             {
@@ -82,7 +82,7 @@ namespace NewShareSourceApp.Services
             };
         }
 
-        public static ShareSourceItem FromStorageItems(IEnumerable<IStorageItem> storageItems)
+        internal static ShareSourceItem FromStorageItems(IEnumerable<IStorageItem> storageItems)
         {
             return new ShareSourceItem(ShareSourceItemType.StorageItems)
             {
@@ -90,7 +90,7 @@ namespace NewShareSourceApp.Services
             };
         }
 
-        public static ShareSourceItem FromDeferredContent(string deferredDataFormatId, Func<Task<object>> getDeferredDataAsyncFunc)
+        internal static ShareSourceItem FromDeferredContent(string deferredDataFormatId, Func<Task<object>> getDeferredDataAsyncFunc)
         {
             return new ShareSourceItem(ShareSourceItemType.DeferredContent)
             {

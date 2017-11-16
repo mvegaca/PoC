@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 using NewShareSourceApp.ViewModels;
-
-using Windows.UI.Xaml.Controls;
 
 namespace NewShareSourceApp.Views
 {
@@ -14,6 +13,18 @@ namespace NewShareSourceApp.Views
         {
             InitializeComponent();
             ViewModel.Initialize(webView);
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            ViewModel.RegisterEvents();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            ViewModel.UnregisterEvents();
         }
     }
 }

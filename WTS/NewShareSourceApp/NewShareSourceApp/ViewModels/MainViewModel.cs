@@ -1,24 +1,29 @@
 ﻿using System;
-
-using NewShareSourceApp.Helpers;
-using NewShareSourceApp.Services;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.Storage.Pickers;
-using System.Collections.Generic;
+
 using Windows.ApplicationModel.DataTransfer;
-using System.Linq;
-using Windows.Storage.Streams;
+using Windows.Foundation;
 using Windows.Graphics.Imaging;
+using Windows.Storage;
+using Windows.Storage.Streams;
+
+using NewShareSourceApp.Extensions;
+using NewShareSourceApp.Helpers;
+using NewShareSourceApp.Models;
+using NewShareSourceApp.Services;
 
 namespace NewShareSourceApp.ViewModels
 {
     public class MainViewModel : Observable
     {
+        private DataTransferManager _dataTransferManager;
         private StorageFile _image;
-        private IEnumerable<StorageFile> _files;
+        private IReadOnlyList<StorageFile> _files;
         private RelayCommand _shareCommand;
+
         public RelayCommand ShareCommand => _shareCommand ?? (_shareCommand = new RelayCommand(OnShare, CanShare));
 
         private bool CanShare()
@@ -106,58 +111,82 @@ namespace NewShareSourceApp.ViewModels
 
         public MainViewModel()
         {
+            _dataTransferManager = DataTransferManager.GetForCurrentView();
+        }
+
+        public void RegisterEvents()
+        {
+            _dataTransferManager.DataRequested += new TypedEventHandler<DataTransferManager, DataRequestedEventArgs>(OnDataRequested);
+        }
+
+        public void UnregisterEvents()
+        {
+            _dataTransferManager.DataRequested -= new TypedEventHandler<DataTransferManager, DataRequestedEventArgs>(OnDataRequested);
+        }
+
+        private void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            // This event will be fired when the share operation starts.
+            // We need to add data to DataRequestedEventArgs through SetData extension method
+            ShareSourceData config = new ShareSourceData("My share title", "My share description");
+
+            // TODO WTS: Use ShareSourceConfig instance to set the data you want to share
+            ConfigureDataToShare(config); //For the poc we have added this method. the user would select the data and set into config under his preference
+
+            args.Request.SetData(config);
+            args.Request.Data.ShareCompleted += OnShareCompleted;
+
+        }
+
+        private void OnShareCompleted(DataPackage sender, ShareCompletedEventArgs args)
+        {
+            // This event will be fired when Share Operation will finish
+            // TODO WTS: If you need to handle any action when de data is shared implement on this method
+        }
+
+        private void ConfigureDataToShare(ShareSourceData config)
+        {
+            if (IncludeText)
+            {
+                config.SetText("Hello world!");
+            }
+            if (IncludeWebLink)
+            {
+                config.SetWebLink(new Uri("https://wwww.microsoft.com/", UriKind.Absolute));
+            }
+            if (IncludeApplicationLink)
+            {
+                config.SetApplicationLink(new Uri("new-share-source-app:navigate?page=MainPage"));
+            }
+            if (IncludeHtml)
+            {
+                config.SetHtml(GetHtmlSample());
+            }
+            if (IncludeImage && _image != null)
+            {
+                config.SetImage(_image);
+            }
+            if (IncludeStorageItems && _files != null && _files.Any())
+            {
+                config.SetStorageItems(_files);
+            }
+            if (IncludeDeferralContent && _image != null)
+            {
+                config.SetDeferredContent(StandardDataFormats.Bitmap, GetDeferredDataSample);
+            }
         }
 
         private async void OnShare()
         {
-            var data = new ShareSourceConfig()
+            if ((IncludeImage || IncludeDeferralContent) && _image == null)
             {
-                Title = "My share title",
-                Description = "Sharing some content from MyApp"
-            };
-
-            if (IncludeText)
-            {
-                data.SetText("Hello world!");
+                _image = await FileOpenPickerService.PickImage();
             }
-            if (IncludeWebLink)
+            if (IncludeStorageItems && (_files == null || !_files.Any()))
             {
-                data.SetWebLink(new Uri("https://wwww.microsoft.com/", UriKind.Absolute));
+                _files = await FileOpenPickerService.PickMultipleImages();
             }
-            if (IncludeApplicationLink)
-            {
-                data.SetApplicationLink(new Uri("new-share-source-app:navigate?page=MainPage"));
-            }
-            if (IncludeHtml)
-            {
-                data.SetHtml(GetHtmlSample());
-            }
-            if (IncludeImage)
-            {
-                await PickImage();
-                if (_image != null)
-                {
-                    data.SetImage(_image);
-                }
-            }
-            if (IncludeStorageItems)
-            {
-                await PickMultipleImages();
-                if (_files != null && _files.Any())
-                {
-                    data.SetStorageItems(_files);
-                }
-            }
-            if (IncludeDeferralContent)
-            {
-                await PickImage();
-                if (_image != null)
-                {
-                    data.SetDeferredContent(StandardDataFormats.Bitmap, GetDeferredDataSample);
-                }
-            }
-
-            ShareSourceService.ShareData(data);
+            DataTransferManager.ShowShareUI();
         }
 
         private string GetHtmlSample()
@@ -171,28 +200,6 @@ namespace NewShareSourceApp.ViewModels
             sb.AppendLine("</body>");
             sb.AppendLine("</html>");
             return sb.ToString();
-        }
-
-        private async Task PickImage()
-        {
-            FileOpenPicker imagePicker = new FileOpenPicker
-            {
-                ViewMode = PickerViewMode.Thumbnail,
-                SuggestedStartLocation = PickerLocationId.PicturesLibrary,
-                FileTypeFilter = { ".jpg", ".png", ".bmp", ".gif", ".tif" }
-            };
-            _image = await imagePicker.PickSingleFileAsync();
-        }
-
-        private async Task PickMultipleImages()
-        {
-            FileOpenPicker filesPicker = new FileOpenPicker
-            {
-                ViewMode = PickerViewMode.Thumbnail,
-                SuggestedStartLocation = PickerLocationId.PicturesLibrary,
-                FileTypeFilter = { ".jpg", ".png", ".bmp", ".gif", ".tif" }
-            };
-            _files = await filesPicker.PickMultipleFilesAsync();
         }
 
         private async Task<object> GetDeferredDataSample()

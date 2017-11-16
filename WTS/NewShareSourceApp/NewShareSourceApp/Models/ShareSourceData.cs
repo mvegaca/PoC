@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace NewShareSourceApp.Services
+namespace NewShareSourceApp.Models
 {
-    public class ShareSourceConfig
+    public class ShareSourceData
     {
         public string Title { get; set; }
 
@@ -14,9 +14,15 @@ namespace NewShareSourceApp.Services
 
         internal List<ShareSourceItem> Items { get; }
 
-        public ShareSourceConfig()
+        public ShareSourceData(string title, string desciption = null)
         {
+            if (string.IsNullOrEmpty(title))
+            {
+                throw new ArgumentException($"The parameter '{nameof(title)}' can not be null or empty.");
+            }
             Items = new List<ShareSourceItem>();
+            Title = title;
+            Description = desciption;
         }
 
         public void SetText(string text)

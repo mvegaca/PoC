@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Windows.Input;
 
-using NewShareSourceApp.Helpers;
-
+using Windows.ApplicationModel.DataTransfer;
+using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using NewShareSourceApp.Services;
+
+using NewShareSourceApp.Extensions;
+using NewShareSourceApp.Helpers;
+using NewShareSourceApp.Models;
 
 namespace NewShareSourceApp.ViewModels
 {
     public class WebViewViewModel : Observable
     {
+        private DataTransferManager _dataTransferManager;
         // TODO WTS: Set the URI of the page to show by default
         private const string DefaultUrl = "https://developer.microsoft.com/en-us/windows/apps";
 
@@ -216,6 +220,8 @@ namespace NewShareSourceApp.ViewModels
         {
             IsLoading = true;
             Source = new Uri(DefaultUrl);
+            _dataTransferManager = DataTransferManager.GetForCurrentView();
+            _dataTransferManager.DataRequested += new TypedEventHandler<DataTransferManager, DataRequestedEventArgs>(OnDataRequested);
         }
 
         public void Initialize(WebView webView)
@@ -223,14 +229,38 @@ namespace NewShareSourceApp.ViewModels
             _webView = webView;
         }
 
+        public void RegisterEvents()
+        {
+            _dataTransferManager.DataRequested += new TypedEventHandler<DataTransferManager, DataRequestedEventArgs>(OnDataRequested);
+        }
+
+        public void UnregisterEvents()
+        {
+            _dataTransferManager.DataRequested -= new TypedEventHandler<DataTransferManager, DataRequestedEventArgs>(OnDataRequested);
+        }
+
         private void OnShare()
         {
-            var config = new ShareSourceConfig()
-            {
-                Title = "Sharing a web link"
-            };
+            DataTransferManager.ShowShareUI();
+        }
+
+        private void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            // This event will be fired when the share operation starts.
+            // We need to add data to DataRequestedEventArgs through SetData extension method
+            var config = new ShareSourceData("Sharing a web link");
+
+            // TODO WTS: Use ShareSourceConfig instance to set the data you want to share
             config.SetWebLink(Source);
-            ShareSourceService.ShareData(config);
+
+            args.Request.SetData(config);
+            args.Request.Data.ShareCompleted += OnShareCompleted;
+        }
+
+        private void OnShareCompleted(DataPackage sender, ShareCompletedEventArgs args)
+        {
+            // This event will be fired when Share Operation will finish
+            // TODO WTS: If you need to handle any action when de data is shared implement on this method
         }
     }
 }

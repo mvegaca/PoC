@@ -108,8 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activation\ActivationHandler.cs" />
-    <Compile Include="Services\ShareSourceConfig.cs" />
-    <Compile Include="Services\ShareSourceItem.cs" />
+    <Compile Include="Extensions\DataRequestExtensions.cs" />
+    <Compile Include="Models\ShareSourceData.cs" />
+    <Compile Include="Models\ShareSourceItem.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
   </ItemGroup>
@@ -150,9 +151,7 @@
     <Compile Include="Helpers\ResourceExtensions.cs" />
     <Compile Include="Helpers\Singleton.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -176,6 +175,7 @@
     <None Include="NewShareSourceApp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\FileOpenPickerService.cs" />
     <Compile Include="Services\NavigationService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -220,9 +220,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Services\ShareSourceService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewModels\WebViewViewModel.cs" />
