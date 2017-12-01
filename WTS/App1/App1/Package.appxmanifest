@@ -8,11 +8,11 @@
   IgnorableNamespaces="uap mp genTemplate">
 
   <Identity
-    Name="01340D49-7028-4E7B-A9E2-A9FF39ED29D3"
+    Name="D207EC48-DD79-4C1A-9290-4B304A831E77"
     Publisher="CN=mvega"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="01340D49-7028-4E7B-A9E2-A9FF39ED29D3" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="D207EC48-DD79-4C1A-9290-4B304A831E77" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>App1</DisplayName>
