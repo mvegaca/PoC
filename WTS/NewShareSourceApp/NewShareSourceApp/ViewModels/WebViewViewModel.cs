@@ -259,6 +259,7 @@ namespace NewShareSourceApp.ViewModels
 
         private void OnShareCompleted(DataPackage sender, ShareCompletedEventArgs args)
         {
+            sender.ShareCompleted -= OnShareCompleted;
             // This event will be fired when Share Operation will finish
             // TODO WTS: If you need to handle any action when de data is shared implement on this method
         }

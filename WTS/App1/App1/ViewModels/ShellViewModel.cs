@@ -10,6 +10,7 @@ using App1.Views;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 
 namespace App1.ViewModels
 {
@@ -78,7 +79,7 @@ namespace App1.ViewModels
             {
                 if (_itemSelected == null)
                 {
-                    _itemSelected = new RelayCommand<ItemClickEventArgs>(ItemSelected);
+                    _itemSelected = new RelayCommand<HamburgetMenuItemInvokedEventArgs>(ItemSelected);
                 }
 
                 return _itemSelected;
@@ -159,14 +160,14 @@ namespace App1.ViewModels
             _secondaryItems.Add(ShellNavigationItem.FromType<SettingsPage>("Shell_Settings".GetLocalized(), Symbol.Setting));
         }
 
-        private void ItemSelected(ItemClickEventArgs args)
+        private void ItemSelected(HamburgetMenuItemInvokedEventArgs args)
         {
             if (DisplayMode == SplitViewDisplayMode.CompactOverlay || DisplayMode == SplitViewDisplayMode.Overlay)
             {
                 IsPaneOpen = false;
             }
 
-            Navigate(args.ClickedItem);
+            Navigate(args.InvokedItem);
         }
 
         private void Frame_Navigated(object sender, NavigationEventArgs e)

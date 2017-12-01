@@ -11,18 +11,11 @@
     mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Key="NavigationMenuItemDataTemplate" x:DataType="vm:ShellNavigationItem">
-            <Grid Width="320" Height="40" Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+            <Grid Width="320" Height="40">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Rectangle
-                        Width="6"
-                        Height="24"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Fill="{ThemeResource SystemControlForegroundAccentBrush}"
-                        Visibility="{x:Bind SelectedVis, Mode=OneWay}" />
                 <Viewbox
                         Child="{x:Bind Icon}"
                         ToolTipService.ToolTip="{x:Bind Label}"
@@ -95,6 +88,7 @@
 
     <controls:HamburgerMenu
             x:Name="NavigationMenu"
+            UseNavigationViewWhenPossible="True"
             DisplayMode="{x:Bind ViewModel.DisplayMode, Mode=OneWay}"
             IsPaneOpen="{x:Bind ViewModel.IsPaneOpen, Mode=TwoWay}"
             ItemTemplate="{StaticResource NavigationMenuItemDataTemplate}"
@@ -105,10 +99,7 @@
             PaneForeground="{ThemeResource SystemControlForegroundBaseHighBrush}"
             >
         <i:Interaction.Behaviors>
-            <ic:EventTriggerBehavior EventName="ItemClick">
-                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemSelectedCommand}" />
-            </ic:EventTriggerBehavior>
-            <ic:EventTriggerBehavior EventName="OptionsItemClick">
+            <ic:EventTriggerBehavior EventName="ItemInvoked">
                 <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemSelectedCommand}" />
             </ic:EventTriggerBehavior>
         </i:Interaction.Behaviors>
