@@ -14,7 +14,8 @@ Global
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution		{7348832F-DD76-463E-ACBE-A7736AAFE21D}.Debug|ARM.ActiveCfg = Debug|ARM
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7348832F-DD76-463E-ACBE-A7736AAFE21D}.Debug|ARM.ActiveCfg = Debug|ARM
 		{7348832F-DD76-463E-ACBE-A7736AAFE21D}.Debug|ARM.Build.0 = Debug|ARM
 		{7348832F-DD76-463E-ACBE-A7736AAFE21D}.Debug|ARM.Deploy.0 = Debug|ARM
 		{7348832F-DD76-463E-ACBE-A7736AAFE21D}.Debug|x64.ActiveCfg = Debug|x64
@@ -32,9 +33,11 @@ Global
 		{7348832F-DD76-463E-ACBE-A7736AAFE21D}.Release|x86.ActiveCfg = Release|x86
 		{7348832F-DD76-463E-ACBE-A7736AAFE21D}.Release|x86.Build.0 = Release|x86
 		{7348832F-DD76-463E-ACBE-A7736AAFE21D}.Release|x86.Deploy.0 = Release|x86
-
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CFD781DE-CC0D-4E82-A978-DA85806941CA}
 	EndGlobalSection
 EndGlobal
