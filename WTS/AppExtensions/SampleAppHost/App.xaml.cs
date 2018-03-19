@@ -9,6 +9,8 @@ namespace SampleAppHost
 {
     public sealed partial class App : Application
     {
+        public static ExtensionsManager ExtensionsService = new ExtensionsManager("Microsoft.com.SampleExtension01");
+
         private Lazy<ActivationService> _activationService;
 
         private ActivationService ActivationService

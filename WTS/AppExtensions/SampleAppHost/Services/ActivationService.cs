@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using SampleAppHost.Activation;
-
+using SampleAppHost.Helpers;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -83,6 +83,7 @@ namespace SampleAppHost.Services
 
         private async Task StartupAsync()
         {
+            await App.ExtensionsService.InitializeAsync(CoreWindow.GetForCurrentThread().Dispatcher);
             await Task.CompletedTask;
         }
 

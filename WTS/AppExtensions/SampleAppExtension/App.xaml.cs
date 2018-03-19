@@ -41,5 +41,10 @@ namespace SampleAppExtension
         {
             return new ActivationService(this, typeof(Views.MainPage));
         }
+
+        protected override async void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+        {
+            await ActivationService.ActivateAsync(args);
+        }
     }
 }
