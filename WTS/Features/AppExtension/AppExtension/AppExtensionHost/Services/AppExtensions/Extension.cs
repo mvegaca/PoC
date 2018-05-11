@@ -215,6 +215,7 @@ namespace AppExtensionHost.Services
         public ExtensionCacheProperties(string uniqueId)
         {
             UniqueId = uniqueId;
+            IsEnabled = true;
         }
     }
 }

@@ -18,6 +18,8 @@ namespace AppExtensionHost.Services
 
         public ObservableCollection<Extension> Extensions { get; } = new ObservableCollection<Extension>();
 
+        public event EventHandler ExtensionsUpdated;
+
         public ExtensionsManager(string extensionContractName)
         {
             _extensionContractName = extensionContractName;
@@ -105,6 +107,7 @@ namespace AppExtensionHost.Services
                         {
                             var newExtension = await Extension.FromAppExtensionAsync(appExtension);
                             Extensions.Add(newExtension);
+                            ExtensionsUpdated?.Invoke(this, EventArgs.Empty);
                         }
                         else
                         {
