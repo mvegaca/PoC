@@ -16,11 +16,10 @@ namespace AppExtensionHost.Views
             InitializeComponent();
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             App.ExtensionsService.ExtensionsUpdated += OnExtensionsUpdated;
-            await ViewModel.InitializeAsync();
         }
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
@@ -28,9 +27,9 @@ namespace AppExtensionHost.Views
             App.ExtensionsService.ExtensionsUpdated -= OnExtensionsUpdated;
         }
 
-        private async void OnExtensionsUpdated(object sender, EventArgs e)
+        private void OnExtensionsUpdated(object sender, EventArgs e)
         {
-            await ViewModel.InitializeAsync();
+            ViewModel.InitializeExtensions();
         }
     }
 }

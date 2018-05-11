@@ -4,18 +4,51 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:AppExtensionHost.ViewModels"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Page.Resources>
-        <DataTemplate x:Key="ExtensionDetailTemplate">
-            <Grid Width="400" Height="300" Margin="12" Background="LightCyan">
-            </Grid>
+        <DataTemplate x:Key="ExtensionDetailTemplate" x:DataType="vm:ExtensionViewModel">
+            <Border Width="400" Height="300" Margin="12">
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="Response01" />
+                        <TextBlock Text="{x:Bind Response01, Mode=OneWay}" Margin="0,4,0,0" />
+                        
+                        <TextBlock Text="Response02" Margin="0,16,0,0" />
+                        <TextBlock Text="{x:Bind Response02, Mode=OneWay}" Margin="0,4,0,0" />
+
+                        <TextBlock Text="Response03" Margin="0,16,0,0" />
+                        <TextBlock Text="{x:Bind Response03, Mode=OneWay}" Margin="0,4,0,0" />
+                    </StackPanel>
+                </Grid>
+            </Border>
         </DataTemplate>
     </Page.Resources>
     <Grid
         x:Name="ContentArea"
         Margin="{StaticResource MediumLeftRightMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel>
+                <TextBlock Text="Parameter01 - string"/>
+                <TextBox Text="{x:Bind ViewModel.Parameter01, Mode=TwoWay}" Margin="0,4,0,0" />
+            </StackPanel>
+            <StackPanel Margin="12,0,0,0">
+                <TextBlock Text="Parameter02 - int"/>
+                <TextBox Text="{x:Bind ViewModel.Parameter02, Mode=TwoWay}" Margin="0,4,0,0" />
+            </StackPanel>
+            <StackPanel Margin="12,0,0,0">
+                <TextBlock Text="Parameter03 - DateTime dd/MM/yyyy" />
+                <TextBox Text="{x:Bind ViewModel.Parameter03, Mode=TwoWay}" Margin="0,4,0,0" />
+            </StackPanel>
+            <Button Content="SendRequest" Command="{x:Bind ViewModel.SendRequestCommand}" Margin="12,0,0,0" />
+        </StackPanel>
         <ItemsControl
+            Grid.Row="1"
             ItemTemplate="{StaticResource ExtensionDetailTemplate}"
             ItemsSource="{x:Bind ViewModel.Extensions}" />
     </Grid>

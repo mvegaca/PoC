@@ -42,9 +42,9 @@ namespace AppExtensionHost.Services
 
         public ICommand RemoveCommand => _removeCommand ?? (_removeCommand = new RelayCommand(OnRemove));
 
-        public ICommand CheckedCommand => _checkedCommand ?? (_checkedCommand = new RelayCommand<RoutedEventArgs>((args) => CheckUpdatedAsync()));
+        public ICommand CheckedCommand => _checkedCommand ?? (_checkedCommand = new RelayCommand<RoutedEventArgs>(async (args) => await CheckUpdatedAsync()));
 
-        public ICommand UncheckedCommand => _uncheckedCommand ?? (_uncheckedCommand = new RelayCommand<RoutedEventArgs>((args) => CheckUpdatedAsync()));
+        public ICommand UncheckedCommand => _uncheckedCommand ?? (_uncheckedCommand = new RelayCommand<RoutedEventArgs>(async (args) => await CheckUpdatedAsync()));
 
         private Extension()
         {
@@ -90,7 +90,7 @@ namespace AppExtensionHost.Services
         public void MarkAsLoaded()
         {
             if (AppExtension.Package.Status.VerifyIsOK())
-            {                
+            {
                 if (!IsLoaded)
                 {
                     IsLoaded = true;
@@ -118,6 +118,14 @@ namespace AppExtensionHost.Services
                             {
                                 return new ExtensionResponse(response.Message);
                             }
+                            else
+                            {
+                                return null;
+                            }
+                        }
+                        else
+                        {
+                            return null;
                         }
                     }
                 }
@@ -127,7 +135,10 @@ namespace AppExtensionHost.Services
                     return null;
                 }
             }
-            return null;
+            else
+            {
+                return null;
+            }
         }
 
         private async Task LoadExtensionDataAsync(AppExtension appExtension)
@@ -151,7 +162,7 @@ namespace AppExtensionHost.Services
             var cacheData = await ApplicationData.Current.LocalFolder.ReadAsync<List<ExtensionCacheProperties>>(ExtensionsStorageKey);
             cacheData = cacheData ?? (cacheData = new List<ExtensionCacheProperties>());
             var cacheItem = cacheData.FirstOrDefault(ecp => ecp.UniqueId == UniqueId);
-            if (cacheItem == null)            
+            if (cacheItem == null)
             {
                 cacheData.Add(new ExtensionCacheProperties(UniqueId));
                 await ApplicationData.Current.LocalFolder.SaveAsync(ExtensionsStorageKey, cacheData);
