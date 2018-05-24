@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:ImageGalleryApp.Models"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:models="using:ImageGalleryApp.Models"    
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -30,7 +31,7 @@
             <FlipView.ItemTemplate>
                 <DataTemplate x:DataType="models:SampleImage">
                     <Viewbox StretchDirection="DownOnly">
-                        <Image
+                        <Image                            
                             x:Name="detailImage"
                             Stretch="None"
                             Source="{x:Bind Source, Mode=OneWay}" />
@@ -39,10 +40,10 @@
             </FlipView.ItemTemplate>
         </FlipView>
 
-
         <Grid x:Name="shapeGrid" Background="{ThemeResource FlipViewBackground}"/>
         <Image
             x:Name="previewImage"
+            animations:Connected.Key="galleryAnimationKey"
             Style="{StaticResource DetailImageStyle}"
             Source="{x:Bind ViewModel.SelectedImage.(models:SampleImage.Source), Mode=OneWay}" />
     </Grid>

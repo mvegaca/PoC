@@ -2,9 +2,10 @@
 
 using ImageGalleryApp.Models;
 using ImageGalleryApp.ViewModels;
-
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 namespace ImageGalleryApp.Views
@@ -16,14 +17,12 @@ namespace ImageGalleryApp.Views
         public ImageGalleryDetailPage()
         {
             InitializeComponent();
-            ViewModel.SetImage(previewImage);
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             await ViewModel.InitializeAsync(e.Parameter as SampleImage, e.NavigationMode);
-            showFlipView.Begin();
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -32,7 +31,6 @@ namespace ImageGalleryApp.Views
             if (e.NavigationMode == NavigationMode.Back)
             {
                 previewImage.Visibility = Visibility.Visible;
-                ViewModel.SetAnimation();
             }
         }
     }

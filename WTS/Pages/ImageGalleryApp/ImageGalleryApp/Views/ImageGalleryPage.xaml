@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Style="{StaticResource PageStyle}"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:models="using:ImageGalleryApp.Models"
@@ -25,10 +26,11 @@
 
         <GridView
             Grid.Row="1"
-            x:Name="gridView"
             ItemsSource="{x:Bind ViewModel.Source}"
             IsItemClickEnabled="True"
             Padding="{StaticResource MediumLeftRightMargin}"
+            animations:Connected.ListItemElementName="thumbnailImage"
+            animations:Connected.ListItemKey="galleryAnimationKey"
             SelectionMode="None">
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="ItemClick">
@@ -38,7 +40,7 @@
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="models:SampleImage">
                     <Image
-                        x:Name="galleryImage"
+                        x:Name="thumbnailImage"
                         Style="{StaticResource ThumbnailImageStyle}"
                         Source="{x:Bind Source}"
                         AutomationProperties.Name="{x:Bind Name}"

@@ -8,7 +8,6 @@ using ImageGalleryApp.Models;
 using ImageGalleryApp.Services;
 
 using Windows.Storage;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
@@ -16,7 +15,6 @@ namespace ImageGalleryApp.ViewModels
 {
     public class ImageGalleryDetailViewModel : Observable
     {
-        private static UIElement _image;
         private object _selectedImage;
         private ObservableCollection<SampleImage> _source;
 
@@ -42,8 +40,6 @@ namespace ImageGalleryApp.ViewModels
             Source = SampleDataService.GetGallerySampleData();
         }
 
-        public void SetImage(UIElement image) => _image = image;
-
         public async Task InitializeAsync(SampleImage sampleImage, NavigationMode navigationMode)
         {
             if (sampleImage != null && navigationMode == NavigationMode.New)
@@ -59,13 +55,14 @@ namespace ImageGalleryApp.ViewModels
                 }
             }
 
-            var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation(ImageGalleryViewModel.ImageGalleryAnimationOpen);
-            animation?.TryStart(_image);
+            var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("listItem");
+            animation.Completed += OnConnectedAnimationCompleted;
         }
 
-        public void SetAnimation()
+        private void OnConnectedAnimationCompleted(ConnectedAnimation sender, object args)
         {
-            ConnectedAnimationService.GetForCurrentView()?.PrepareToAnimate(ImageGalleryViewModel.ImageGalleryAnimationClose, _image);
+            sender.Completed -= OnConnectedAnimationCompleted;
+            showFlipView.Begin();
         }
     }
 }
