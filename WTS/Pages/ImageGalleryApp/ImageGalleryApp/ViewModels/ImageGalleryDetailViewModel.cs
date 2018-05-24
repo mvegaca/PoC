@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,7 +7,6 @@ using ImageGalleryApp.Models;
 using ImageGalleryApp.Services;
 
 using Windows.Storage;
-using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 namespace ImageGalleryApp.ViewModels
@@ -54,15 +52,6 @@ namespace ImageGalleryApp.ViewModels
                     SelectedImage = Source.FirstOrDefault(i => i.ID == selectedImageId);
                 }
             }
-
-            var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("listItem");
-            animation.Completed += OnConnectedAnimationCompleted;
-        }
-
-        private void OnConnectedAnimationCompleted(ConnectedAnimation sender, object args)
-        {
-            sender.Completed -= OnConnectedAnimationCompleted;
-            showFlipView.Begin();
         }
     }
 }
