@@ -47,18 +47,16 @@ namespace ActivityFeed.Services
 
             //Populate minimum required properties
             activity.VisualElements.DisplayText = displayText;
-            if (description != null)
+            if (!backgroundColor.HasValue)
+            {
+                backgroundColor = default(Color);
+            }
+            if (!string.IsNullOrEmpty(description))
             {
                 activity.VisualElements.Description = description;
             }
-            if (backgroundColor.HasValue)
-            {
-                activity.VisualElements.BackgroundColor = backgroundColor.Value;
-            }
-            if (adaptiveCard != null)
-            {
-                activity.VisualElements.Content = adaptiveCard;
-            }
+            activity.VisualElements.BackgroundColor = backgroundColor.Value;
+            activity.VisualElements.Content = adaptiveCard;
 
             await activity.SaveAsync();
 

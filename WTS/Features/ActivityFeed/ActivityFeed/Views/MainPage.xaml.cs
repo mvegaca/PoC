@@ -32,24 +32,24 @@ namespace ActivityFeed.Views
                 }
             );
 
-            await ActivityFeedService.AddUserActivityAsync(
-                activityId: nameof(MainPage),
-                activationData: activationData,
-                displayText: $"Work on {nameof(MainPage)}",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.",
-                backgroundColor: Colors.DarkBlue);
-
-            // Create a new AdaptiveCard to set as UserActivity Content
-            //var displayText = $"Work on {nameof(MainPage)}";
-            //var description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.";
-            //var imageUrl = "http://adaptivecards.io/content/cats/2.png";
-            //var adaptiveCard = AdaptiveCardsService.AdaptiveCardFromTemplate1(displayText, description, imageUrl);
-
             //await ActivityFeedService.AddUserActivityAsync(
             //    activityId: nameof(MainPage),
             //    activationData: activationData,
-            //    displayText: displayText,
-            //    adaptiveCard: adaptiveCard);
+            //    displayText: $"Work on {nameof(MainPage)}",
+            //    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.",
+            //    backgroundColor: Colors.DarkBlue);
+
+            //Create a new AdaptiveCard to set as UserActivity Content
+            var displayText = $"Work on {nameof(MainPage)}";
+            var description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.";
+            var imageUrl = "http://adaptivecards.io/content/cats/2.png";
+            var adaptiveCard = AdaptiveCardsService.CreateAdaptiveCardSample(displayText, description, imageUrl);
+
+            await ActivityFeedService.AddUserActivityAsync(
+                activityId: nameof(MainPage),
+                activationData: activationData,
+                displayText: displayText,
+                adaptiveCard: adaptiveCard);
         }
     }
 }
