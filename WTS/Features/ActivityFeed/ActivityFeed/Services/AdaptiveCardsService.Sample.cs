@@ -7,7 +7,7 @@ namespace ActivityFeed.Services
     // Find new AdaptiveCards templates in http://adaptivecards.io/
     public static class AdaptiveCardsService
     {
-        public static IAdaptiveCard AdaptiveCardFromTemplate1(string displayText, string description, string imageUrl = null)
+        public static IAdaptiveCard CreateAdaptiveCardSample(string displayText, string description, string imageUrl = null)
         {
             var adaptiveCard = new AdaptiveCard();
             var columns = new AdaptiveColumnSet();

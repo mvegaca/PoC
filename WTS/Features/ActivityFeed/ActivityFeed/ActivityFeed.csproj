@@ -120,7 +120,7 @@
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\ActivityFeedService.cs" />
-    <Compile Include="Services\AdaptiveCardsService.cs" />
+    <Compile Include="Services\AdaptiveCardsService.Sample.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\UriSchemeExampleViewModel.cs" />
