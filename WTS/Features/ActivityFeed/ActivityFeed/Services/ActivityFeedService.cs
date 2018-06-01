@@ -17,27 +17,23 @@ namespace ActivityFeed.Services
 
         public static async Task AddUserActivityAsync(string activityId, SchemeActivationData activationData, string displayText, string description = null, Color? backgroundColor = null)
         {
-            var activity = await CreateUserActivityAsync(activityId, activationData, displayText);
+            var activity = await CreateUserActivityAsync(activityId, activationData, displayText, backgroundColor);
             if (!string.IsNullOrEmpty(description))
             {
                 activity.VisualElements.Description = description;
             }
-            if (!backgroundColor.HasValue)
-            {
-                backgroundColor = default(Color);
-            }
-            activity.VisualElements.BackgroundColor = backgroundColor.Value;
+            activity.VisualElements.Content = null;
             await SaveUserActivityAsync(activity);
         }
 
-        public static async Task AddUserActivityAsync(string activityId, SchemeActivationData activationData, string displayText, IAdaptiveCard adaptiveCard)
+        public static async Task AddUserActivityAsync(string activityId, SchemeActivationData activationData, string displayText, IAdaptiveCard adaptiveCard, Color? backgroundColor = null)
         {
-            var activity = await CreateUserActivityAsync(activityId, activationData, displayText);
+            var activity = await CreateUserActivityAsync(activityId, activationData, displayText, backgroundColor);
             activity.VisualElements.Content = adaptiveCard;
             await SaveUserActivityAsync(activity);
         }
 
-        private static async Task<UserActivity> CreateUserActivityAsync(string activityId, SchemeActivationData activationData, string displayText)
+        private static async Task<UserActivity> CreateUserActivityAsync(string activityId, SchemeActivationData activationData, string displayText, Color? backgroundColor = null)
         {
             if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException(nameof(activityId));            
             if (activationData == null) throw new ArgumentNullException(nameof(activationData));
@@ -49,6 +45,10 @@ namespace ActivityFeed.Services
             activity.ActivationUri = activationUri;
 
             activity.VisualElements.DisplayText = displayText;
+            if (!backgroundColor.HasValue)
+            {
+                backgroundColor = default(Color);
+            }
             return activity;
         }
 

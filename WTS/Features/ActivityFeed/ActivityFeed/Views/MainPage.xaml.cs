@@ -32,27 +32,28 @@ namespace ActivityFeed.Views
                 }
             );
 
-            // Way 1
-            // Fill the UserActivity with Title (mandatory), Description (optional) and BackgroundColor (optional)
-            await ActivityFeedService.AddUserActivityAsync(
-                activityId: nameof(MainPage),
-                activationData: activationData,
-                displayText: $"Work on {nameof(MainPage)}",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.",
-                backgroundColor: Colors.DarkBlue);
-
-            //// Way 2
-            //// Create the UserActivity with the Title (mandatory) and a new AdaptiveCard (mandatory)
-            //var displayText = $"Work on {nameof(MainPage)}";
-            //var description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.";
-            //var imageUrl = "http://adaptivecards.io/content/cats/2.png";
-            //var adaptiveCard = AdaptiveCardsService.CreateAdaptiveCardSample(displayText, description, imageUrl);
-
+            //// Way 1
+            //// Fill the UserActivity with Title (mandatory), Description (optional) and BackgroundColor (optional)
             //await ActivityFeedService.AddUserActivityAsync(
             //    activityId: nameof(MainPage),
             //    activationData: activationData,
-            //    displayText: displayText,
-            //    adaptiveCard: adaptiveCard);
+            //    displayText: $"Work on {nameof(MainPage)}",
+            //    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.",
+            //    backgroundColor: Colors.DarkBlue);
+
+            // Way 2
+            // Create the UserActivity with the Title (mandatory) and a new AdaptiveCard (mandatory)
+            var displayText = $"Work on {nameof(MainPage)}";
+            var description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.";
+            var imageUrl = "http://adaptivecards.io/content/cats/2.png";
+            var adaptiveCard = AdaptiveCardsService.CreateAdaptiveCardSample(displayText, description, imageUrl);
+
+            await ActivityFeedService.AddUserActivityAsync(
+                activityId: nameof(MainPage),
+                activationData: activationData,
+                displayText: displayText,
+                adaptiveCard: adaptiveCard,
+                backgroundColor: Colors.DarkRed);
         }
     }
 }
