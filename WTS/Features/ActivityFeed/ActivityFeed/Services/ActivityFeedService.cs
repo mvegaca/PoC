@@ -1,63 +1,59 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ActivityFeed.Activation;
 using Windows.ApplicationModel.UserActivities;
 using Windows.UI;
 using Windows.UI.Shell;
+using ActivityFeed.Activation;
 
 namespace ActivityFeed.Services
 {
+    // For more info about UserActivities in Timeline see
+    // https://blogs.windows.com/buildingapps/2017/12/19/application-engagement-windows-timeline-user-activities/#q4oyyjCE45qW8MMl.97
+    // For more info about UserActivities with AdaptativeCards see
+    // https://docs.microsoft.com/adaptive-cards/get-started/windows
     public static class ActivityFeedService
     {
         private static UserActivitySession _currentUserActivitySession;
 
-        public static Task AddUserActivityAsync(string activityId, SchemeActivationData activationData, string displayText, string description = null, Color? backgroundColor = null)
+        public static async Task AddUserActivityAsync(string activityId, SchemeActivationData activationData, string displayText, string description = null, Color? backgroundColor = null)
         {
-            return AddUserActivityAsync(activityId, activationData, displayText, description, backgroundColor, null);
+            var activity = await CreateUserActivityAsync(activityId, activationData, displayText);
+            if (!string.IsNullOrEmpty(description))
+            {
+                activity.VisualElements.Description = description;
+            }
+            if (!backgroundColor.HasValue)
+            {
+                backgroundColor = default(Color);
+            }
+            activity.VisualElements.BackgroundColor = backgroundColor.Value;
+            await SaveUserActivityAsync(activity);
         }
 
-        public static Task AddUserActivityAsync(string activityId, SchemeActivationData activationData, string displayText, IAdaptiveCard adaptiveCard)
+        public static async Task AddUserActivityAsync(string activityId, SchemeActivationData activationData, string displayText, IAdaptiveCard adaptiveCard)
         {
-            return AddUserActivityAsync(activityId, activationData, displayText, null, null, adaptiveCard);
+            var activity = await CreateUserActivityAsync(activityId, activationData, displayText);
+            activity.VisualElements.Content = adaptiveCard;
+            await SaveUserActivityAsync(activity);
         }
 
-        //AdaptativeCards on Windows
-        //https://docs.microsoft.com/en-us/adaptive-cards/get-started/windows
-        // Your application should name activities in such a way that same ID is generated each time the user is in a particular location in the app. For example, if your application is page-based, use an identifier for the page, if it’s document based, use the name of the doc (or a hash of the name).
-        private static async Task AddUserActivityAsync(string activityId, SchemeActivationData activationData, string displayText, string description = null, Color? backgroundColor = null, IAdaptiveCard adaptiveCard = null)
+        private static async Task<UserActivity> CreateUserActivityAsync(string activityId, SchemeActivationData activationData, string displayText)
         {
-            if (string.IsNullOrEmpty(activityId))
-            {
-                throw new ArgumentNullException(nameof(activityId));
-            }
-            else if (activationData == null)
-            {
-                throw new ArgumentNullException(nameof(activationData));
-            }
-            else if (string.IsNullOrEmpty(displayText))
-            {
-                throw new ArgumentNullException(nameof(displayText));
-            }
+            if (string.IsNullOrEmpty(activityId)) throw new ArgumentNullException(nameof(activityId));            
+            if (activationData == null) throw new ArgumentNullException(nameof(activationData));
+            if (string.IsNullOrEmpty(displayText)) throw new ArgumentNullException(nameof(displayText));            
 
-            //Get the default UserActivityChannel and query it for our UserActivity. If the activity doesn't exist, one is created.
             var channel = UserActivityChannel.GetDefault();
             var activationUri = activationData.BuildUri();
             var activity = await channel.GetOrCreateUserActivityAsync(activityId);
             activity.ActivationUri = activationUri;
 
-            //Populate minimum required properties
             activity.VisualElements.DisplayText = displayText;
-            if (!backgroundColor.HasValue)
-            {
-                backgroundColor = default(Color);
-            }
-            if (!string.IsNullOrEmpty(description))
-            {
-                activity.VisualElements.Description = description;
-            }
-            activity.VisualElements.BackgroundColor = backgroundColor.Value;
-            activity.VisualElements.Content = adaptiveCard;
+            return activity;
+        }
 
+        private static async Task SaveUserActivityAsync(UserActivity activity)
+        {
             await activity.SaveAsync();
 
             //Dispose of any current UserActivitySession, and create a new one.

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ActivityFeed.Helpers;
 using ActivityFeed.Services;
-using ActivityFeed.Views;
 
 using Windows.ApplicationModel.Activation;
 

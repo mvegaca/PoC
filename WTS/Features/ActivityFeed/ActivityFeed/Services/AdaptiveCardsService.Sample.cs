@@ -4,9 +4,10 @@ using Windows.UI.Shell;
 
 namespace ActivityFeed.Services
 {
-    // Find new AdaptiveCards templates in http://adaptivecards.io/
     public static class AdaptiveCardsService
     {
+        // TODO WTS: Change this to configure your own adaptive card
+        // For more info about adaptive cards see http://adaptivecards.io/
         public static IAdaptiveCard CreateAdaptiveCardSample(string displayText, string description, string imageUrl = null)
         {
             var adaptiveCard = new AdaptiveCard();
