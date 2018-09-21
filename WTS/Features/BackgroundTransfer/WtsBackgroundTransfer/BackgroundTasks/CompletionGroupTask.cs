@@ -12,9 +12,8 @@ using WtsBackgroundTransfer.Services;
 
 namespace WtsBackgroundTransfer.BackgroundTasks
 {
-    public sealed class CompletionGroupTask : BackgroundTask
+    public sealed class CompletionGroupTask : BackgroundTask, IBackgroundTransferBackgroundTask
     {
-        public BackgroundTransferCompletionGroup CompletionGroup = new BackgroundTransferCompletionGroup();
         public static string Message { get; set; }
 
         private volatile bool _cancelRequested = false;
@@ -23,22 +22,9 @@ namespace WtsBackgroundTransfer.BackgroundTasks
 
         public override void Register()
         {
-            var taskName = GetType().Name;
-            foreach (var task in BackgroundTaskRegistration.AllTasks)
-            {
-                task.Value.Unregister(true);
-            }
-
-            if (!BackgroundTaskRegistration.AllTasks.Any(t => t.Value.Name == taskName))
-            {
-                var builder = new BackgroundTaskBuilder()
-                {
-                    Name = taskName
-                };
-
-                builder.SetTrigger(CompletionGroup.Trigger);
-                builder.Register();
-            }
+            //
+            //
+            //
         }
 
         public override Task RunAsyncInternal(IBackgroundTaskInstance taskInstance)
@@ -72,7 +58,6 @@ namespace WtsBackgroundTransfer.BackgroundTasks
                 }
 
                 _taskInstance = taskInstance;
-                ThreadPoolTimer.CreatePeriodicTimer(new TimerElapsedHandler(SampleTimerCallback), TimeSpan.FromSeconds(1));
             });
         }
 
@@ -82,31 +67,7 @@ namespace WtsBackgroundTransfer.BackgroundTasks
 
             // TODO WTS: Insert code to handle the cancelation request here.
             // Documentation: https://docs.microsoft.com/windows/uwp/launch-resume/handle-a-cancelled-background-task
-        }
-
-        private void SampleTimerCallback(ThreadPoolTimer timer)
-        {
-            if ((_cancelRequested == false) && (_taskInstance.Progress < 100))
-            {
-                _taskInstance.Progress += 10;
-                Message = $"Background Task {_taskInstance.Task.Name} running";
-            }
-            else
-            {
-                timer.Cancel();
-
-                if (_cancelRequested)
-                {
-                    Message = $"Background Task {_taskInstance.Task.Name} cancelled";
-                }
-                else
-                {
-                    Message = $"Background Task {_taskInstance.Task.Name} finished";
-                }
-
-                _deferral?.Complete();
-            }
-        }
+        }        
 
         private void ShowToastNotification(int succeededDownloads, int failedDownloads)
         {
@@ -139,6 +100,29 @@ namespace WtsBackgroundTransfer.BackgroundTasks
             };
 
             Singleton<ToastNotificationsService>.Instance.ShowToastNotification(toast);
+        }
+
+        public BackgroundTransferCompletionGroup GetCompletionGroup()
+        {
+            var completionGroup = new BackgroundTransferCompletionGroup();
+            var taskName = GetType().Name;
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+            {
+                task.Value.Unregister(true);
+            }
+
+            if (!BackgroundTaskRegistration.AllTasks.Any(t => t.Value.Name == taskName))
+            {
+                var builder = new BackgroundTaskBuilder()
+                {
+                    Name = taskName
+                };
+
+                builder.SetTrigger(completionGroup.Trigger);
+                builder.Register();
+            }
+
+            return completionGroup;
         }
     }
 }

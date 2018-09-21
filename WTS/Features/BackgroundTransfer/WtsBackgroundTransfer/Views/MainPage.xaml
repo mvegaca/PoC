@@ -4,24 +4,60 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:WtsBackgroundTransfer.Models"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="DownloadInfoTemplate" x:DataType="models:DownloadInfo">
+            <Grid Margin="0,12,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Text="{x:Bind FileName}" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Text="{x:Bind Status, Mode=OneWay}" />
+                <ProgressBar
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Minimum="0"
+                    MaxHeight="100"
+                    Margin="0,8,0,0"
+                    Value="{x:Bind Percent, Mode=OneWay}" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
     <Grid
         x:Name="ContentArea"
         Margin="{StaticResource MediumLeftRightMargin}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="48"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <TextBlock
             Grid.Row="0"
             x:Uid="Main_Title"
             Style="{StaticResource PageTitleStyle}" />
-        <Grid Grid.Row="1">
-            <Button
-                Content="Download"
-                Command="{x:Bind ViewModel.DownloadButton}" />
-        </Grid>
+        <Button
+            Grid.Row="1"
+            Content="Download"
+            Command="{x:Bind ViewModel.DownloadButton}" />
+        <ScrollViewer Grid.Row="2">
+            <ItemsControl
+                ItemsSource="{x:Bind ViewModel.Downloads}"
+                ItemTemplate="{StaticResource DownloadInfoTemplate}" />
+        </ScrollViewer>
     </Grid>
 </Page>

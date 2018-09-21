@@ -110,11 +110,13 @@
     <Compile Include="Activation\ActivationHandler.cs" />
     <Compile Include="BackgroundTasks\BackgroundTask.cs" />
     <Compile Include="BackgroundTasks\CompletionGroupTask.cs" />
+    <Compile Include="BackgroundTasks\IBackgroundTransferBackgroundTask.cs" />
+    <Compile Include="Helpers\BackgroundDownloadProgressExtensions.cs" />
     <Compile Include="Helpers\DownloadOperationExtensions.cs" />
-    <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\Observable.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\TaskExtensions.cs" />
+    <Compile Include="Models\DownloadInfo.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\BackgroundTaskService.cs" />
@@ -168,9 +170,7 @@
     <Compile Include="Helpers\ResourceExtensions.cs" />
     <Compile Include="Helpers\Singleton.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

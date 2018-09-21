@@ -15,10 +15,10 @@ namespace WtsBackgroundTransfer.Views
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            ViewModel.Initialize();
+            await ViewModel.InitializeAsync(Dispatcher);
         }
     }
 }
