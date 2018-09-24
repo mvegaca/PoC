@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace WtsBackgroundTransfer.ViewModels
 
         public readonly ObservableCollection<DownloadInfo> Downloads = new ObservableCollection<DownloadInfo>();
 
-        public ICommand DownloadButton => _downloadButton ?? (_downloadButton = new RelayCommand(OnDownload));
+        public ICommand DownloadButton => _downloadButton ?? (_downloadButton = new RelayCommand<string>(OnDownload));
 
         public MainViewModel()
         {
@@ -40,10 +41,7 @@ namespace WtsBackgroundTransfer.ViewModels
             var activeDownloads = await _backgroundTransferService.InitializeAsync();
             if (activeDownloads != null)
             {
-                foreach (var activeDownload in activeDownloads)
-                {
-                    Downloads.Add(activeDownload);
-                }
+                AddDownloadsInfo(activeDownloads);
             }
 
             _backgroundTransferService.DownloadProgress += UpdateDownloadInfo;
@@ -59,12 +57,26 @@ namespace WtsBackgroundTransfer.ViewModels
             });
         }
 
-        private async void OnDownload()
+        private async void OnDownload(string parameter)
         {
-            var fileName = $"{Path.GetRandomFileName()}.zip";
-            var file = await KnownFolders.PicturesLibrary.CreateFileAsync(fileName, CreationCollisionOption.GenerateUniqueName);
-            var downloadInfo = _backgroundTransferService.Download(_uri, file);
-            Downloads.Add(downloadInfo);
+            var totalFiles = Int32.Parse(parameter);
+            var files = new List<(Uri Uri, IStorageFile ResultFile)>();
+            for (int i = 0; i < totalFiles; i++)
+            {
+                var fileName = $"{Path.GetRandomFileName()}.zip";
+                var file = await KnownFolders.PicturesLibrary.CreateFileAsync(fileName, CreationCollisionOption.GenerateUniqueName);
+                files.Add((_uri, file));
+            }
+            var newDownloads = _backgroundTransferService.Download(files);
+            AddDownloadsInfo(newDownloads);
+        }
+
+        private void AddDownloadsInfo(IEnumerable<DownloadInfo> downloadsInfo)
+        {
+            foreach (var downloadInfo in downloadsInfo)
+            {
+                Downloads.Add(downloadInfo);
+            }
         }
     }
 }

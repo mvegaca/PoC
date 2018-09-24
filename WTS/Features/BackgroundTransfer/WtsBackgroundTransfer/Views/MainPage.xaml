@@ -50,10 +50,22 @@
             Grid.Row="0"
             x:Uid="Main_Title"
             Style="{StaticResource PageTitleStyle}" />
-        <Button
-            Grid.Row="1"
-            Content="Download"
-            Command="{x:Bind ViewModel.DownloadButton}" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button
+                Content="Download 1 file"
+                Command="{x:Bind ViewModel.DownloadButton}"
+                CommandParameter="1" />
+            <Button
+                Margin="12,0,0,0"
+                Content="Download 3 file"
+                Command="{x:Bind ViewModel.DownloadButton}"
+                CommandParameter="3" />
+            <Button
+                Margin="12,0,0,0"
+                Content="Download 5 file"
+                Command="{x:Bind ViewModel.DownloadButton}"
+                CommandParameter="5" />
+        </StackPanel>
         <ScrollViewer Grid.Row="2">
             <ItemsControl
                 ItemsSource="{x:Bind ViewModel.Downloads}"

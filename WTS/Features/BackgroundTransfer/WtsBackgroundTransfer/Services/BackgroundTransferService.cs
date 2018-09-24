@@ -51,15 +51,20 @@ namespace WtsBackgroundTransfer.Services
             return null;
         }        
 
-        public DownloadInfo Download(Uri uri, IStorageFile resultFile, BackgroundTransferPriority priority = BackgroundTransferPriority.Default)
+        public IEnumerable<DownloadInfo> Download(IEnumerable<(Uri Uri, IStorageFile ResultFile)> files, BackgroundTransferPriority priority = BackgroundTransferPriority.Default)
         {
+            var downloadsInfo = new List<DownloadInfo>();
             var downloader = GetDownloader();
-            var download = downloader.CreateDownload(uri, resultFile);
-            download.Priority = priority;
+            foreach (var file in files)
+            {
+                var download = downloader.CreateDownload(file.Uri, file.ResultFile);
+                download.Priority = priority;
+                HandleDownload(download, true);
+                var downloadInfo = new DownloadInfo(download);
+                downloadsInfo.Add(downloadInfo);
+            }
             downloader.CompletionGroup?.Enable();
-            HandleDownload(download, true);
-            var downloadInfo = new DownloadInfo(download);
-            return downloadInfo;
+            return downloadsInfo;
         }
 
         private BackgroundDownloader GetDownloader()

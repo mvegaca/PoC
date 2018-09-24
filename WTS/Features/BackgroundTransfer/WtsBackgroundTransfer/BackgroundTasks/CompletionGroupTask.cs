@@ -22,9 +22,8 @@ namespace WtsBackgroundTransfer.BackgroundTasks
 
         public override void Register()
         {
-            //
-            //
-            //
+            // This particular Background Task will be registered in method GetCompletionGroup
+            // because it will registry one time for each download group.
         }
 
         public override Task RunAsyncInternal(IBackgroundTaskInstance taskInstance)
