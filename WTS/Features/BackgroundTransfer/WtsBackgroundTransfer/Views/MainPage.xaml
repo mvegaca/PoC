@@ -52,19 +52,16 @@
             Style="{StaticResource PageTitleStyle}" />
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Button
-                Content="Download 1 file"
-                Command="{x:Bind ViewModel.DownloadButton}"
-                CommandParameter="1" />
+                Content="Download 3 files"
+                Command="{x:Bind ViewModel.DownloadCommand}" />
             <Button
                 Margin="12,0,0,0"
-                Content="Download 3 file"
-                Command="{x:Bind ViewModel.DownloadButton}"
-                CommandParameter="3" />
+                Content="Download 3 files with completion group task"
+                Command="{x:Bind ViewModel.DownloadWithTaskCommand, Mode=OneWay}" />
             <Button
                 Margin="12,0,0,0"
-                Content="Download 5 file"
-                Command="{x:Bind ViewModel.DownloadButton}"
-                CommandParameter="5" />
+                Content="Clear compleated tasks"
+                Command="{x:Bind ViewModel.ClearCommand}" />
         </StackPanel>
         <ScrollViewer Grid.Row="2">
             <ItemsControl

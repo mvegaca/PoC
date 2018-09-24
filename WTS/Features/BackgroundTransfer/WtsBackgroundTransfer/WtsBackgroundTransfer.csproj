@@ -114,6 +114,7 @@
     <Compile Include="Helpers\BackgroundDownloadProgressExtensions.cs" />
     <Compile Include="Helpers\DownloadOperationExtensions.cs" />
     <Compile Include="Helpers\Observable.cs" />
+    <Compile Include="Helpers\ObservableCollectionExtensions.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\TaskExtensions.cs" />
     <Compile Include="Models\DownloadInfo.cs" />

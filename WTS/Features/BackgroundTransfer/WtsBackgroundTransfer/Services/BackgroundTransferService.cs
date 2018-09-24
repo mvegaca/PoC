@@ -13,28 +13,30 @@ namespace WtsBackgroundTransfer.Services
     public class BackgroundTransferService
     {
         private readonly BackgroundTransferGroup _group;
-        private readonly IBackgroundTransferBackgroundTask _backgroundTask;
         private readonly CancellationTokenSource _cts = new CancellationTokenSource();
+        private List<Task> _downloadTasks = new List<Task>();
 
         public event EventHandler<DownloadOperation> DownloadProgress;
         public event EventHandler<DownloadOperation> DownloadCompleted;
+        public event EventHandler IsDownloadingWithTaskChanged;
+        public bool IsDownloadingWithTask;
+
+        public BackgroundTransferService()
+        {
+        }
 
         public BackgroundTransferService(string groupName)
         {
             _group = BackgroundTransferGroup.CreateGroup(groupName);
         }
 
-        public BackgroundTransferService(string groupName, IBackgroundTransferBackgroundTask backgroundTask)
-        {
-            _group = BackgroundTransferGroup.CreateGroup(groupName);
-            _backgroundTask = backgroundTask;
-        }
-
         public async Task<IEnumerable<DownloadInfo>> InitializeAsync()
         {
             try
             {
-                var downloads = await BackgroundDownloader.GetCurrentDownloadsForTransferGroupAsync(_group);
+                var downloads = _group == null
+                                    ? await BackgroundDownloader.GetCurrentDownloadsAsync()
+                                    : await BackgroundDownloader.GetCurrentDownloadsForTransferGroupAsync(_group);
                 if (downloads.Any())
                 {
                     foreach (var download in downloads)
@@ -49,12 +51,25 @@ namespace WtsBackgroundTransfer.Services
             }
 
             return null;
-        }        
+        }
 
-        public IEnumerable<DownloadInfo> Download(IEnumerable<(Uri Uri, IStorageFile ResultFile)> files, BackgroundTransferPriority priority = BackgroundTransferPriority.Default)
+        public IEnumerable<DownloadInfo> Download(IEnumerable<(Uri Uri, IStorageFile ResultFile)> files, BackgroundTransferPriority priority = BackgroundTransferPriority.Default, IBackgroundTransferBackgroundTask backgroundTask = null)
         {
+            if (backgroundTask != null)
+            {
+                if (!IsDownloadingWithTask)
+                {
+                    IsDownloadingWithTask = true;
+                    IsDownloadingWithTaskChanged?.Invoke(this, EventArgs.Empty);
+                    _downloadTasks.Clear();
+                }
+                else
+                {
+                    return null;
+                }
+            }
             var downloadsInfo = new List<DownloadInfo>();
-            var downloader = GetDownloader();
+            var downloader = GetDownloader(backgroundTask);
             foreach (var file in files)
             {
                 var download = downloader.CreateDownload(file.Uri, file.ResultFile);
@@ -64,27 +79,28 @@ namespace WtsBackgroundTransfer.Services
                 downloadsInfo.Add(downloadInfo);
             }
             downloader.CompletionGroup?.Enable();
+            Task.WhenAll(_downloadTasks).ContinueWith((task) =>
+            {
+                if (backgroundTask != null)
+                {
+                    IsDownloadingWithTask = false;
+                    IsDownloadingWithTaskChanged?.Invoke(this, EventArgs.Empty);
+                }
+            });
             return downloadsInfo;
         }
 
-        private BackgroundDownloader GetDownloader()
+        private BackgroundDownloader GetDownloader(IBackgroundTransferBackgroundTask backgroundTask = null)
         {
-            if (_backgroundTask != null)
+            var downloader = backgroundTask == null
+                                ? new BackgroundDownloader()
+                                : new BackgroundDownloader(backgroundTask.GetCompletionGroup());
+            if (_group != null)
             {
-                // Register a new BackgroundTask with new CompletionGroup
-                var completionGroup = _backgroundTask.GetCompletionGroup();
-                return new BackgroundDownloader(completionGroup)
-                {
-                    TransferGroup = _group
-                };
+                downloader.TransferGroup = _group;
             }
-            else
-            {
-                return new BackgroundDownloader()
-                {
-                    TransferGroup = _group
-                };
-            }
+
+            return downloader;
         }
 
         private void HandleDownload(DownloadOperation download, bool start)
@@ -92,18 +108,20 @@ namespace WtsBackgroundTransfer.Services
             try
             {
                 var callback = new Progress<DownloadOperation>(OnDownloadProgress);
+                Task downloadTask;
                 if (start)
                 {
-                    download.StartAsync()
+                    downloadTask = download.StartAsync()
                             .AsTask(_cts.Token, callback)
                             .ContinueWith(OnDownloadCompleted);
                 }
                 else
                 {
-                    download.AttachAsync()
+                    downloadTask = download.AttachAsync()
                             .AsTask(_cts.Token, callback)
                             .ContinueWith(OnDownloadCompleted);
                 }
+                _downloadTasks.Add(downloadTask);
             }
             catch (TaskCanceledException)
             {

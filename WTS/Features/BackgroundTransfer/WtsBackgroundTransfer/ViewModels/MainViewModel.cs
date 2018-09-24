@@ -22,12 +22,23 @@ namespace WtsBackgroundTransfer.ViewModels
         // http://ipv4.download.thinkbroadband.com/5MB.zip
         private readonly Uri _uri = new Uri("http://ipv4.download.thinkbroadband.com/5MB.zip");
         private BackgroundTransferService _backgroundTransferService;
-        private ICommand _downloadButton;
+        private ICommand _downloadCommand;
+        private RelayCommand _downloadWithTaskCommand;
+        private ICommand _clearCommand;
         private CoreDispatcher _dispatcher;
 
         public readonly ObservableCollection<DownloadInfo> Downloads = new ObservableCollection<DownloadInfo>();
 
-        public ICommand DownloadButton => _downloadButton ?? (_downloadButton = new RelayCommand<string>(OnDownload));
+        public ICommand DownloadCommand => _downloadCommand ?? (_downloadCommand = new RelayCommand(OnDownload));
+
+        public RelayCommand DownloadWithTaskCommand => _downloadWithTaskCommand ?? (_downloadWithTaskCommand = new RelayCommand(OnDownloadWithTask, CanDownloadWithTask));
+
+        public ICommand ClearCommand => _clearCommand ?? (_clearCommand = new RelayCommand(OnClear));
+
+        private bool CanDownloadWithTask()
+        {
+            return !_backgroundTransferService.IsDownloadingWithTask;
+        }
 
         public MainViewModel()
         {
@@ -36,10 +47,8 @@ namespace WtsBackgroundTransfer.ViewModels
         public async Task InitializeAsync(CoreDispatcher dispatcher)
         {
             _dispatcher = dispatcher;
-            //var task = BackgroundTaskService.BackgroundTasks.First(t => t.Match(nameof(CompletionGroupTask))) as IBackgroundTransferBackgroundTask;
-            var task = new CompletionGroupTask();
-            //_backgroundTransferService = new BackgroundTransferService("wtsGroup", task);
-            _backgroundTransferService = new BackgroundTransferService("wtsGroup");
+            _backgroundTransferService = new BackgroundTransferService();
+            //_backgroundTransferService = new BackgroundTransferService("wtsGroup");
             var activeDownloads = await _backgroundTransferService.InitializeAsync();
             if (activeDownloads != null)
             {
@@ -48,6 +57,7 @@ namespace WtsBackgroundTransfer.ViewModels
 
             _backgroundTransferService.DownloadProgress += UpdateDownloadInfo;
             _backgroundTransferService.DownloadCompleted += UpdateDownloadInfo;
+            _backgroundTransferService.IsDownloadingWithTaskChanged += OnIsDownloadingWithTaskChanged;
         }
 
         private async void UpdateDownloadInfo(object sender, DownloadOperation download)
@@ -59,26 +69,57 @@ namespace WtsBackgroundTransfer.ViewModels
             });
         }
 
-        private async void OnDownload(string parameter)
+        private async Task DownloadAsync(bool useTask)
         {
-            var totalFiles = Int32.Parse(parameter);
             var files = new List<(Uri Uri, IStorageFile ResultFile)>();
-            for (int i = 0; i < totalFiles; i++)
+            IEnumerable<DownloadInfo> newDownloads;
+            for (int i = 0; i < 3; i++)
             {
                 var fileName = $"{Path.GetRandomFileName()}.zip";
                 var file = await KnownFolders.PicturesLibrary.CreateFileAsync(fileName, CreationCollisionOption.GenerateUniqueName);
                 files.Add((_uri, file));
             }
-            var newDownloads = _backgroundTransferService.Download(files);
+            if (useTask)
+            {
+                var completionGroupTask = BackgroundTaskService.BackgroundTasks.First(t => t.Match(nameof(CompletionGroupTask))) as IBackgroundTransferBackgroundTask;
+                newDownloads = _backgroundTransferService.Download(files, BackgroundTransferPriority.Default, completionGroupTask);
+            }
+            else
+            {
+                newDownloads = _backgroundTransferService.Download(files);
+            }
             AddDownloadsInfo(newDownloads);
         }
 
         private void AddDownloadsInfo(IEnumerable<DownloadInfo> downloadsInfo)
         {
-            foreach (var downloadInfo in downloadsInfo)
+            if (downloadsInfo != null)
             {
-                Downloads.Add(downloadInfo);
+                foreach (var downloadInfo in downloadsInfo)
+                {
+                    Downloads.Add(downloadInfo);
+                }
             }
+        }
+
+        private void OnClear()
+        {
+            Downloads.RemoveAll(d => d.Status == BackgroundTransferStatus.Completed.ToString());
+        }
+
+        private async void OnDownload()
+        {
+            await DownloadAsync(false);
+        }
+
+        private async void OnDownloadWithTask()
+        {
+            await DownloadAsync(true);
+        }
+
+        private void OnIsDownloadingWithTaskChanged(object sender, EventArgs e)
+        {
+            DownloadWithTaskCommand.OnCanExecuteChanged();
         }
     }
 }

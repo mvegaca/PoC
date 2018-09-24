@@ -105,6 +105,10 @@ namespace WtsBackgroundTransfer.BackgroundTasks
         {
             var completionGroup = new BackgroundTransferCompletionGroup();
             var taskName = GetType().Name;
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+            {
+                task.Value.Unregister(true);
+            }
             if (!BackgroundTaskRegistration.AllTasks.Any(t => t.Value.Name == taskName))
             {
                 var builder = new BackgroundTaskBuilder()
