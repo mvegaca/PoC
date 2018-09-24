@@ -17,9 +17,10 @@ namespace WtsBackgroundTransfer.ViewModels
 {
     public class MainViewModel : Observable
     {
-        //http://ipv4.download.thinkbroadband.com/512MB.zip
-        //http://ipv4.download.thinkbroadband.com/10MB.zip
-        private readonly Uri _uri = new Uri("http://ipv4.download.thinkbroadband.com/10MB.zip");
+        // http://ipv4.download.thinkbroadband.com/512MB.zip
+        // http://ipv4.download.thinkbroadband.com/10MB.zip
+        // http://ipv4.download.thinkbroadband.com/5MB.zip
+        private readonly Uri _uri = new Uri("http://ipv4.download.thinkbroadband.com/5MB.zip");
         private BackgroundTransferService _backgroundTransferService;
         private ICommand _downloadButton;
         private CoreDispatcher _dispatcher;
@@ -35,9 +36,10 @@ namespace WtsBackgroundTransfer.ViewModels
         public async Task InitializeAsync(CoreDispatcher dispatcher)
         {
             _dispatcher = dispatcher;
-            var task = BackgroundTaskService.BackgroundTasks.First(t => t.Match(nameof(CompletionGroupTask))) as IBackgroundTransferBackgroundTask;
-            _backgroundTransferService = new BackgroundTransferService("wtsGroup", task);
-            //_backgroundTransferService = new BackgroundTransferService("wtsGroup");
+            //var task = BackgroundTaskService.BackgroundTasks.First(t => t.Match(nameof(CompletionGroupTask))) as IBackgroundTransferBackgroundTask;
+            var task = new CompletionGroupTask();
+            //_backgroundTransferService = new BackgroundTransferService("wtsGroup", task);
+            _backgroundTransferService = new BackgroundTransferService("wtsGroup");
             var activeDownloads = await _backgroundTransferService.InitializeAsync();
             if (activeDownloads != null)
             {

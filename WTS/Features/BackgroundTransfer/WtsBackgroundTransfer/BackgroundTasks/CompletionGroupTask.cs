@@ -23,7 +23,7 @@ namespace WtsBackgroundTransfer.BackgroundTasks
         public override void Register()
         {
             // This particular Background Task will be registered in method GetCompletionGroup
-            // because it will registry one time for each download group.
+            // because it will register one time for each download group.
         }
 
         public override Task RunAsyncInternal(IBackgroundTaskInstance taskInstance)
@@ -66,7 +66,7 @@ namespace WtsBackgroundTransfer.BackgroundTasks
 
             // TODO WTS: Insert code to handle the cancelation request here.
             // Documentation: https://docs.microsoft.com/windows/uwp/launch-resume/handle-a-cancelled-background-task
-        }        
+        }
 
         private void ShowToastNotification(int succeededDownloads, int failedDownloads)
         {
@@ -105,11 +105,6 @@ namespace WtsBackgroundTransfer.BackgroundTasks
         {
             var completionGroup = new BackgroundTransferCompletionGroup();
             var taskName = GetType().Name;
-            foreach (var task in BackgroundTaskRegistration.AllTasks)
-            {
-                task.Value.Unregister(true);
-            }
-
             if (!BackgroundTaskRegistration.AllTasks.Any(t => t.Value.Name == taskName))
             {
                 var builder = new BackgroundTaskBuilder()
