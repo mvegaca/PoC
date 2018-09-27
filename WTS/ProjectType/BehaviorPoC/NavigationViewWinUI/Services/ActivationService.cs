@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using NavigationViewWinUI.Activation;
+
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -69,12 +71,12 @@ namespace NavigationViewWinUI.Services
 
         private async Task InitializeAsync()
         {
-            await Task.CompletedTask;
+            await ThemeSelectorService.InitializeAsync();
         }
 
         private async Task StartupAsync()
         {
-            await Task.CompletedTask;
+            await ThemeSelectorService.SetRequestedThemeAsync();
         }
 
         private IEnumerable<ActivationHandler> GetActivationHandlers()

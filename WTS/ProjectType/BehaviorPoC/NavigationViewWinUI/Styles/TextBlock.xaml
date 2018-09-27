@@ -3,6 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!--Common texts-->
+    <Style TargetType="TextBlock" x:Key="BaseTextBlockStyle">
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    
     <Style x:Key="PageTitleStyle" TargetType="TextBlock">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="FontWeight" Value="SemiLight" />
@@ -12,11 +18,16 @@
         <Setter Property="Margin" Value="{StaticResource PageTitleMargin}" />
     </Style>
 
-    <Style x:Key="BodyTextStyle" TargetType="TextBlock">
-        <Setter Property="FontWeight" Value="Normal" />
+    <Style x:Key="PageSubtitleStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+        <Setter Property="FontSize" Value="{StaticResource MediumLargeFontSize}" />
+    </Style>
+
+    <Style x:Key="BodyTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="FontSize" Value="{StaticResource MediumFontSize}" />
-        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
-        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <Style x:Key="CaptionTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+        <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
     </Style>
 
     <!--MasterDetail TextBlock Styles-->

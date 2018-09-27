@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using WinUI = Microsoft.UI.Xaml.Controls;
 
 using NavigationViewWinUI.Helpers;
 using NavigationViewWinUI.Services;
 using NavigationViewWinUI.Views;
+
+using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.System;
-using System.Collections.Generic;
+
+using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace NavigationViewWinUI.ViewModels
 {
@@ -54,6 +56,12 @@ namespace NavigationViewWinUI.ViewModels
 
         private void OnItemInvoked(WinUI.NavigationViewItemInvokedEventArgs args)
         {
+            if (args.IsSettingsInvoked)
+            {
+                NavigationService.Navigate(typeof(SettingsPage));
+                return;
+            }
+
             var item = _navigationView.MenuItems
                             .OfType<WinUI.NavigationViewItem>()
                             .First(menuItem => (string)menuItem.Content == (string)args.InvokedItem);
@@ -69,6 +77,12 @@ namespace NavigationViewWinUI.ViewModels
         private void Frame_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
             IsBackEnabled = NavigationService.CanGoBack;
+            if (e.SourcePageType == typeof(SettingsPage))
+            {
+                Selected = _navigationView.SettingsItem as WinUI.NavigationViewItem;
+                return;
+            }
+
             Selected = _navigationView.MenuItems
                             .OfType<WinUI.NavigationViewItem>()
                             .FirstOrDefault(menuItem => IsMenuItemForPageType(menuItem, e.SourcePageType));
