@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">    
 
     <!--Custom size margins-->
-    <Thickness x:Key="PageTitleMargin">0,0,12,7</Thickness>
+    <Thickness x:Key="PageTitleMargin">7,0,12,10</Thickness>
     <Thickness x:Key="SettingsSubheaderMargin">0, 20, 0, 48</Thickness>
     
     <!--Medium size margins-->

@@ -5,11 +5,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Style="{StaticResource PageStyle}"
+    Background="Red"
     mc:Ignorable="d">
 
     <Grid
+        Background="Pink"
         x:Name="ContentArea"
-        Margin="{StaticResource MediumLeftRightMargin}">
+        Margin="19,0,19,0">
+        <!--Margin="{StaticResource MediumLeftRightMargin}"-->
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <!--

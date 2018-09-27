@@ -34,7 +34,9 @@
             <behaviors:NavigationViewBehavior>
                 <behaviors:NavigationViewBehavior.DefaultHeaderTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding}" />
+                        <Grid>
+                            <TextBlock Text="{Binding}" Style="{StaticResource PageTitleStyle}" />
+                        </Grid>
                     </DataTemplate>
                 </behaviors:NavigationViewBehavior.DefaultHeaderTemplate>
             </behaviors:NavigationViewBehavior>
