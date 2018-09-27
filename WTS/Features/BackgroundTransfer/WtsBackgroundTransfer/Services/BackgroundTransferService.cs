@@ -34,9 +34,7 @@ namespace WtsBackgroundTransfer.Services
         {
             try
             {
-                var downloads = _group == null
-                                    ? await BackgroundDownloader.GetCurrentDownloadsAsync()
-                                    : await BackgroundDownloader.GetCurrentDownloadsForTransferGroupAsync(_group);
+                var downloads = await GetActiveDownloadsAsync();
                 if (downloads.Any())
                 {
                     foreach (var download in downloads)
@@ -88,6 +86,32 @@ namespace WtsBackgroundTransfer.Services
                 }
             });
             return downloadsInfo;
+        }
+
+        public async Task PauseAllAsync()
+        {
+            var downloads = await GetActiveDownloadsAsync();
+            var runningDownloads = downloads.Where(d => d.Progress.Status == BackgroundTransferStatus.Running);
+            runningDownloads.ToList().ForEach(d => d.Pause());
+        }
+
+        public async Task ResumeAllAsync()
+        {
+            var downloads = await GetActiveDownloadsAsync();
+            var runningDownloads = downloads.Where(d => d.Progress.Status == BackgroundTransferStatus.PausedByApplication);
+            runningDownloads.ToList().ForEach(d => d.Resume());
+        }
+
+        private async Task<IReadOnlyList<DownloadOperation>> GetActiveDownloadsAsync()
+        {
+            if (_group == null)
+            {
+                return await BackgroundDownloader.GetCurrentDownloadsAsync();
+            }
+            else
+            {
+                return await BackgroundDownloader.GetCurrentDownloadsForTransferGroupAsync(_group);
+            }
         }
 
         private BackgroundDownloader GetDownloader(IBackgroundTransferBackgroundTask backgroundTask = null)

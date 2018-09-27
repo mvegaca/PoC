@@ -24,6 +24,8 @@ namespace WtsBackgroundTransfer.ViewModels
         private BackgroundTransferService _backgroundTransferService;
         private ICommand _downloadCommand;
         private RelayCommand _downloadWithTaskCommand;
+        private ICommand _pauseCommand;
+        private ICommand _resumeCommand;
         private ICommand _clearCommand;
         private CoreDispatcher _dispatcher;
 
@@ -32,6 +34,10 @@ namespace WtsBackgroundTransfer.ViewModels
         public ICommand DownloadCommand => _downloadCommand ?? (_downloadCommand = new RelayCommand(OnDownload));
 
         public RelayCommand DownloadWithTaskCommand => _downloadWithTaskCommand ?? (_downloadWithTaskCommand = new RelayCommand(OnDownloadWithTask, CanDownloadWithTask));
+
+        public ICommand PauseCommand => _pauseCommand ?? (_pauseCommand = new RelayCommand(OnPause));
+
+        public ICommand ResumeCommand => _resumeCommand ?? (_resumeCommand = new RelayCommand(OnResume));
 
         public ICommand ClearCommand => _clearCommand ?? (_clearCommand = new RelayCommand(OnClear));
 
@@ -100,6 +106,16 @@ namespace WtsBackgroundTransfer.ViewModels
                     Downloads.Add(downloadInfo);
                 }
             }
+        }
+
+        private async void OnPause()
+        {
+            await _backgroundTransferService.PauseAllAsync();
+        }
+
+        private async void OnResume()
+        {
+            await _backgroundTransferService.ResumeAllAsync();
         }
 
         private void OnClear()
