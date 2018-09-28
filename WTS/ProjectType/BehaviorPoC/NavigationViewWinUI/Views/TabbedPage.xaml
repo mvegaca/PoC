@@ -7,6 +7,10 @@
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
 
+    <!--
+    New Margin
+    mvegaca
+    -->
     <Grid x:Name="ContentArea" Margin="8,-10,8,0">
         <Pivot
             x:Name="Items">

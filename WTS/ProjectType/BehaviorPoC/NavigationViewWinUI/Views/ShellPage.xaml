@@ -29,6 +29,7 @@
             -->
             <winui:NavigationViewItem x:Uid="Shell_Blank" Icon="Document" helpers:NavHelper.NavigateTo="views:BlankPage" />
             <winui:NavigationViewItem x:Uid="Shell_Tabbed" Icon="Document" helpers:NavHelper.NavigateTo="views:TabbedPage" />
+            <winui:NavigationViewItem x:Uid="Shell_ImageGallery" Icon="Document" helpers:NavHelper.NavigateTo="views:ImageGalleryPage" />
             <winui:NavigationViewItem x:Uid="Shell_InkDraw" Icon="Document" helpers:NavHelper.NavigateTo="views:InkDrawPage" />
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>

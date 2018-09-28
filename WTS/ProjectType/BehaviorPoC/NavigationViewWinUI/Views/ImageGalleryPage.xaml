@@ -1,0 +1,42 @@
+﻿<Page
+    x:Class="NavigationViewWinUI.Views.ImageGalleryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Style="{StaticResource PageStyle}"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:models="using:NavigationViewWinUI.Models"
+    NavigationCacheMode="Required"
+    mc:Ignorable="d">
+
+    <Grid x:Name="ContentArea">
+        <GridView
+            x:Name="gridView"
+            ItemsSource="{x:Bind ViewModel.Source}"
+            IsItemClickEnabled="True"
+            SelectionMode="None"
+            Margin="19,0,19,0">
+            <!--
+            mvegaca
+            Padding="{StaticResource MediumLeftRightMargin}"
+            -->
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="ItemClick">
+                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemSelectedCommand}" />
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="models:SampleImage">
+                    <Image
+                        x:Name="galleryImage"
+                        Style="{StaticResource ThumbnailImageStyle}"
+                        Source="{x:Bind Source}"
+                        AutomationProperties.Name="{x:Bind Name}"
+                        ToolTipService.ToolTip="{x:Bind Name}"/>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+    </Grid>
+</Page>

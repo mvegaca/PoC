@@ -364,4 +364,8 @@
     <value>Tabbed</value>
     <comment>Navigation view item name for Tabbed</comment>
   </data>
+  <data name="Shell_ImageGallery.Content" xml:space="preserve">
+    <value>ImageGallery</value>
+    <comment>Navigation view item name for ImageGallery</comment>
+  </data>
 </root>
