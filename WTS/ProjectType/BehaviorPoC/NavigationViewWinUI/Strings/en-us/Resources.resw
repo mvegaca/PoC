@@ -352,4 +352,16 @@
     <value>parameter must be an Enum name!</value>
     <comment>Parameter must be an Enum name in enum to boolean converter</comment>
   </data>
+  <data name="Tabbed_PivotItem1.Header" xml:space="preserve">  
+    <value>Item 1</value>
+    <comment>First Pivot item title for Tabbed</comment>
+  </data>
+  <data name="Tabbed_PivotItem2.Header" xml:space="preserve">
+    <value>Item 2</value>
+    <comment>Second Pivot item title for Tabbed</comment>
+  </data>
+  <data name="Shell_Tabbed.Content" xml:space="preserve">
+    <value>Tabbed</value>
+    <comment>Navigation view item name for Tabbed</comment>
+  </data>
 </root>

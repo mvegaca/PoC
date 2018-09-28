@@ -28,6 +28,7 @@
             Edit String/en-US/Resources.resw: Add a menu item title for each page
             -->
             <winui:NavigationViewItem x:Uid="Shell_Blank" Icon="Document" helpers:NavHelper.NavigateTo="views:BlankPage" />
+            <winui:NavigationViewItem x:Uid="Shell_Tabbed" Icon="Document" helpers:NavHelper.NavigateTo="views:TabbedPage" />
             <winui:NavigationViewItem x:Uid="Shell_InkDraw" Icon="Document" helpers:NavHelper.NavigateTo="views:InkDrawPage" />
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>
