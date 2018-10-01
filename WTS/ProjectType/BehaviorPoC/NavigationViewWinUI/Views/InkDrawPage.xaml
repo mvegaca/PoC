@@ -6,10 +6,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
     xmlns:behaviors="using:NavigationViewWinUI.Behaviors"
     xmlns:viewModels="using:NavigationViewWinUI.ViewModels"
-    behaviors:NavigationViewBehavior.Header="{x:Bind ViewModel, Mode=OneWay}"
+    behaviors:NavigationViewHeaderBehavior.HeaderContext="{x:Bind ViewModel, Mode=OneWay}"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
-    <behaviors:NavigationViewBehavior.HeaderTemplate>
+    <behaviors:NavigationViewHeaderBehavior.HeaderTemplate>
         <DataTemplate x:DataType="viewModels:InkDrawViewModel">
             <Grid>
                 <Grid>
@@ -136,7 +136,7 @@
                 </Grid>
             </Grid>
         </DataTemplate>
-    </behaviors:NavigationViewBehavior.HeaderTemplate>
+    </behaviors:NavigationViewHeaderBehavior.HeaderTemplate>
 
     <Grid
         x:Name="ContentArea">

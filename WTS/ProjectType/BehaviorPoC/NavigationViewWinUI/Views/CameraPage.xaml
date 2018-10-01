@@ -9,7 +9,7 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:controls="using:NavigationViewWinUI.Controls"
     xmlns:behaviors="using:NavigationViewWinUI.Behaviors"
-    behaviors:NavigationViewBehavior.HeaderMode="Never"
+    behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
     mc:Ignorable="d">    
     <Grid x:Name="ContentArea">
 

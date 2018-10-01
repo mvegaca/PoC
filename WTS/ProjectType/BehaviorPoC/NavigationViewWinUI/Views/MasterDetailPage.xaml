@@ -9,7 +9,7 @@
     xmlns:model="using:NavigationViewWinUI.Models"
     xmlns:views="using:NavigationViewWinUI.Views"
     xmlns:behaviors="using:NavigationViewWinUI.Behaviors"
-    behaviors:NavigationViewBehavior.HeaderMode="Never"
+    behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
     mc:Ignorable="d">
     <Page.Transitions>
         <TransitionCollection>
