@@ -37,6 +37,10 @@
             <winui:NavigationViewItem x:Uid="Shell_WebViewWithMargins" Icon="Document" helpers:NavHelper.NavigateTo="views:WebViewWithMarginsPage" />
             <winui:NavigationViewItem x:Uid="Shell_Map" Icon="Document" helpers:NavHelper.NavigateTo="views:MapPage" />
             <winui:NavigationViewItem x:Uid="Shell_MapWithMargins" Icon="Document" helpers:NavHelper.NavigateTo="views:MapWithMarginsPage" />
+            <winui:NavigationViewItem x:Uid="Shell_DataGrid" Icon="Document" helpers:NavHelper.NavigateTo="views:DataGridPage" />
+            <winui:NavigationViewItem x:Uid="Shell_TelerikDataGrid" Icon="Document" helpers:NavHelper.NavigateTo="views:TelerikDataGridPage" />
+            <winui:NavigationViewItem x:Uid="Shell_Chart" Icon="Document" helpers:NavHelper.NavigateTo="views:ChartPage" />
+            <winui:NavigationViewItem x:Uid="Shell_Camera" Icon="Document" helpers:NavHelper.NavigateTo="views:CameraPage" />
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>
             <behaviors:NavigationViewBehavior

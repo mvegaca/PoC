@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 using NavigationViewWinUI.Models;
@@ -144,6 +145,21 @@ namespace NavigationViewWinUI.Services
             await Task.CompletedTask;
 
             return AllOrders();
+        }
+
+        // TODO WTS: Remove this once your grid page is displaying real data
+        public static ObservableCollection<SampleOrder> GetGridSampleData()
+        {
+            return new ObservableCollection<SampleOrder>(AllOrders());
+        }
+
+        // TODO WTS: Remove this once your chart page is displaying real data
+        public static ObservableCollection<DataPoint> GetChartSampleData()
+        {
+            var data = AllOrders().Select(o => new DataPoint() { Category = o.Company, Value = o.OrderTotal })
+                                  .OrderBy(dp => dp.Category);
+
+            return new ObservableCollection<DataPoint>(data);
         }
     }
 }
