@@ -11,9 +11,16 @@
     New Margin
     mvegaca
     -->
-    <Grid x:Name="ContentArea" Margin="8,-10,8,0">
+    <Grid x:Name="ContentArea" Margin="12,0,12,0">
         <Pivot
             x:Name="Items">
+            <Pivot.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock
+                        Text="{Binding}"
+                        Style="{ThemeResource SubtitleTextBlockStyle}" />
+                </DataTemplate>
+            </Pivot.HeaderTemplate>
             <PivotItem x:Uid="Tabbed_PivotItem1">
                 <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
                     <!--

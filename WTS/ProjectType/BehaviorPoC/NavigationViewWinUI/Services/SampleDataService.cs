@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 using NavigationViewWinUI.Models;
 
@@ -135,6 +136,14 @@ namespace NavigationViewWinUI.Services
             }
 
             return data;
+        }
+
+        // TODO WTS: Remove this once your MasterDetail pages are displaying real data
+        public static async Task<IEnumerable<SampleOrder>> GetSampleModelDataAsync()
+        {
+            await Task.CompletedTask;
+
+            return AllOrders();
         }
     }
 }

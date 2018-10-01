@@ -16,6 +16,29 @@ namespace NavigationViewWinUI.Behaviors
 
         public DataTemplate DefaultHeaderTemplate { get; set; }
 
+        public object DefaultHeader
+        {
+            get { return GetValue(DefaultHeaderProperty); }
+            set { SetValue(DefaultHeaderProperty, value); }
+        }
+
+        public static readonly DependencyProperty DefaultHeaderProperty = DependencyProperty.Register("DefaultHeader", typeof(object), typeof(NavigationViewBehavior), new PropertyMetadata(null, (d, e) => _current.UpdateHeader()));
+
+
+
+        public static bool GetShowHeader(Page item)
+        {
+            return (bool)item.GetValue(ShowHeaderProperty);
+        }
+
+        public static void SetShowHeader(Page item, bool value)
+        {
+            item.SetValue(ShowHeaderProperty, value);
+        }
+
+        public static readonly DependencyProperty ShowHeaderProperty =
+            DependencyProperty.RegisterAttached("ShowHeader", typeof(bool), typeof(NavigationViewBehavior), new PropertyMetadata(true, (d, e) => _current.UpdateHeader()));
+
         public static object GetHeader(Page item)
         {
             return item.GetValue(HeaderProperty);
@@ -59,10 +82,23 @@ namespace NavigationViewWinUI.Behaviors
         {
             if (NavigationService.Frame.Content is Page page)
             {
-                var header = page.GetValue(HeaderProperty);
-                if (header != null)
+                if (GetShowHeader(page))
                 {
-                    AssociatedObject.Header = header;
+                    var headerFromPage = page.GetValue(HeaderProperty);
+                    if (headerFromPage != null)
+                    {
+                        AssociatedObject.Header = headerFromPage;
+                    }
+                    else
+                    {
+                        AssociatedObject.Header = DefaultHeader;
+                    }
+                    AssociatedObject.AlwaysShowHeader = true;
+                }
+                else
+                {
+                    AssociatedObject.Header = null;
+                    AssociatedObject.AlwaysShowHeader = false;
                 }
             }
         }

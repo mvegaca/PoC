@@ -12,7 +12,7 @@
         <helper:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
     </Page.Resources>
 
-    <Grid Margin="19,0,19,0">
+    <Grid Margin="24,0,24,0">
         <!--
         mvegaca
         Margin="{StaticResource MediumLeftRightMargin}"
@@ -21,11 +21,14 @@
             x:Name="ContentArea">
             <TextBlock
                 x:Uid="Settings_Personalization"
-                Style="{StaticResource PageSubtitleStyle}" />
+                Style="{ThemeResource SubtitleTextBlockStyle}"
+                />
+            <!--Style="{StaticResource PageSubtitleStyle}"-->
             <StackPanel Margin="{StaticResource SettingsSubheaderMargin}">
                 <TextBlock
                     x:Uid="Settings_Theme"
-                    Style="{StaticResource CaptionTextStyle}" />
+                     Style="{ThemeResource CaptionTextBlockStyle}" />
+                <!--Style="{StaticResource CaptionTextStyle}"-->
 
                 <StackPanel Margin="{StaticResource EightTopMargin}">
                     <RadioButton
@@ -33,7 +36,7 @@
                         GroupName="AppTheme"
                         IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}"
                         Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        FontSize="{StaticResource SmallFontSize}">
+                        FontSize="12">
                         <RadioButton.CommandParameter>
                             <xaml:ElementTheme>Light</xaml:ElementTheme>
                         </RadioButton.CommandParameter>
@@ -43,7 +46,7 @@
                         GroupName="AppTheme"
                         IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}"
                         Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        FontSize="{StaticResource SmallFontSize}">
+                        FontSize="12">
                         <RadioButton.CommandParameter>
                             <xaml:ElementTheme>Dark</xaml:ElementTheme>
                         </RadioButton.CommandParameter>
@@ -53,7 +56,7 @@
                         GroupName="AppTheme"
                         IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}"
                         Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        FontSize="{StaticResource SmallFontSize}">
+                        FontSize="12">
                         <RadioButton.CommandParameter>
                             <xaml:ElementTheme>Default</xaml:ElementTheme>
                         </RadioButton.CommandParameter>
@@ -63,16 +66,19 @@
 
             <TextBlock
                 x:Uid="Settings_About"
-                Style="{StaticResource PageSubtitleStyle}" />
+                 Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <!--Style="{StaticResource PageSubtitleStyle}"-->
 
             <StackPanel Margin="{StaticResource EightTopMargin}">
                 <TextBlock
-                    Style="{StaticResource CaptionTextStyle}"
-                    Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}"
+                    Style="{ThemeResource CaptionTextBlockStyle}" />
+                <!--Style="{StaticResource CaptionTextStyle}"-->
                 <TextBlock
                     x:Uid="Settings_AboutDescription"
-                    Style="{StaticResource CaptionTextStyle}"
-                    Margin="{StaticResource EightTopMargin}" />
+                    Margin="{StaticResource EightTopMargin}"
+                    Style="{ThemeResource CaptionTextBlockStyle}" />
+                <!--Style="{StaticResource CaptionTextStyle}"-->
 
                 <HyperlinkButton
                     x:Uid="Settings_PrivacyTermsLink"

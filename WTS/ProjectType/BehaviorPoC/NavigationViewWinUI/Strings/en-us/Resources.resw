@@ -368,4 +368,12 @@
     <value>ImageGallery</value>
     <comment>Navigation view item name for ImageGallery</comment>
   </data>
+  <data name="MasterDetail_NoSelection.Text" xml:space="preserve">
+    <value>Select an item from the list.</value>
+    <comment>No selection text for MasterDetail</comment>
+  </data>
+  <data name="Shell_MasterDetail.Content" xml:space="preserve">
+    <value>MasterDetail</value>
+    <comment>Navigation view item name for MasterDetail</comment>
+  </data>
 </root>

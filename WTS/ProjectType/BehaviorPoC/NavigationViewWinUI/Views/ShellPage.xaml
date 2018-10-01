@@ -15,7 +15,6 @@
     <winui:NavigationView
         x:Name="winUiNavigationView"
         SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
-        Header="{x:Bind ViewModel.Selected.Content, Mode=OneWay}"
         IsBackButtonVisible="Visible"
         IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
         IsSettingsVisible="True"
@@ -30,14 +29,19 @@
             <winui:NavigationViewItem x:Uid="Shell_Blank" Icon="Document" helpers:NavHelper.NavigateTo="views:BlankPage" />
             <winui:NavigationViewItem x:Uid="Shell_Tabbed" Icon="Document" helpers:NavHelper.NavigateTo="views:TabbedPage" />
             <winui:NavigationViewItem x:Uid="Shell_ImageGallery" Icon="Document" helpers:NavHelper.NavigateTo="views:ImageGalleryPage" />
+            <winui:NavigationViewItem x:Uid="Shell_MasterDetail" Icon="Document" helpers:NavHelper.NavigateTo="views:MasterDetailPage" />
             <winui:NavigationViewItem x:Uid="Shell_InkDraw" Icon="Document" helpers:NavHelper.NavigateTo="views:InkDrawPage" />
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>
-            <behaviors:NavigationViewBehavior>
+            <behaviors:NavigationViewBehavior
+                DefaultHeader="{x:Bind ViewModel.Selected.Content}">
                 <behaviors:NavigationViewBehavior.DefaultHeaderTemplate>
                     <DataTemplate>
                         <Grid>
-                            <TextBlock Text="{Binding}" Style="{StaticResource PageTitleStyle}" />
+                            <TextBlock
+                                Text="{Binding}"
+                                Style="{ThemeResource TitleTextBlockStyle}"
+                                Margin="12,0,12,0" />
                         </Grid>
                     </DataTemplate>
                 </behaviors:NavigationViewBehavior.DefaultHeaderTemplate>

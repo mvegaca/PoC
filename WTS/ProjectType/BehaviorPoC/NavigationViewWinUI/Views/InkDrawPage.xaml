@@ -11,127 +11,137 @@
     mc:Ignorable="d">
     <behaviors:NavigationViewBehavior.HeaderTemplate>
         <DataTemplate x:DataType="viewModels:InkDrawViewModel">
-            <CommandBar
-                DefaultLabelPosition="Collapsed"
-                HorizontalAlignment="Left"
-                HorizontalContentAlignment="Left">
-                <CommandBar.Content>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            x:Uid="InkDrawHeader"
-                            VerticalAlignment="Center"
-                            Margin="12,0,12,0" />
-                        <InkToolbar Grid.Column="1" Loaded="OnInkToolbarLoaded">
-                            <InkToolbarCustomToolButton
-                                x:Uid="InkDraw_LassoSelectionButton"
-                                IsChecked="{x:Bind EnableLassoSelection, Mode=TwoWay}">
-                                <FontIcon
-                                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                    Glyph="&#xEF20;" />
-                            </InkToolbarCustomToolButton>
-                            <InkToolbarCustomToggleButton
-                                x:Uid="InkDraw_TouchInkingButton"
-                                IsChecked="{x:Bind EnableTouch, Mode=TwoWay}">
-                                <FontIcon
-                                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                    Glyph="&#xED5F;" />
-                            </InkToolbarCustomToggleButton>
-                            <InkToolbarCustomToggleButton
-                                x:Uid="InkDraw_MouseInkingButton"
-                                IsChecked="{x:Bind EnableMouse, Mode=TwoWay}">
-                                <FontIcon
-                                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                    Glyph="&#xE962;" />
-                            </InkToolbarCustomToggleButton>
-                        </InkToolbar>
-                    </Grid>
-                </CommandBar.Content>
-                <AppBarSeparator />
-                <AppBarButton
-                    BorderBrush="Transparent"
-                    BorderThickness="0,0,0,0"
-                    x:Uid="InkDraw_ZoomInButton"
-                    Icon="ZoomIn"
-                    Command="{x:Bind ZoomInCommand}" />
-                <AppBarButton
-                    BorderBrush="Transparent"
-                    BorderThickness="0,0,0,0"
-                    x:Uid="InkDraw_ZoomOutButton"
-                    Icon="ZoomOut"
-                    Command="{x:Bind ZoomOutCommand}" />
-                <AppBarSeparator/>
-                <AppBarButton
-                    BorderBrush="Transparent"
-                    BorderThickness="0,0,0,0"
-                    x:Uid="InkDraw_CutButton"
-                    Icon="Cut"
-                    Command="{x:Bind CutCommand}" />
-                <AppBarButton
-                    BorderBrush="Transparent"
-                    BorderThickness="0,0,0,0"
-                    x:Uid="InkDraw_CopyButton"
-                    Icon="Copy"
-                    Command="{x:Bind CopyCommand}" />
-                <AppBarButton
-                    BorderBrush="Transparent"
-                    BorderThickness="0,0,0,0"
-                    x:Uid="InkDraw_PasteButton"
-                    Icon="Paste"
-                    Command="{x:Bind PasteCommand}" />
-                <AppBarSeparator />
-                <AppBarButton
-                    BorderBrush="Transparent"
-                    BorderThickness="0,0,0,0"
-                    x:Uid="InkDraw_UndoButton"
-                    Icon="Undo"
-                    Command="{x:Bind UndoCommand}" />
-                <AppBarButton
-                    BorderBrush="Transparent"
-                    BorderThickness="0,0,0,0"
-                    x:Uid="InkDraw_RedoButton"
-                    Icon="Redo"
-                    Command="{x:Bind RedoCommand}" />
-                <AppBarSeparator/>
-                <AppBarButton
-                    BorderBrush="Transparent"
-                    BorderThickness="0,0,0,0"
-                    x:Uid="InkDraw_LoadInkFileButton"
-                    Icon="OpenFile"
-                    Command="{x:Bind LoadInkFileCommand}" />
-                <AppBarButton
-                    BorderBrush="Transparent"
-                    BorderThickness="0,0,0,0"
-                    x:Uid="InkDraw_SaveInkFileButton"
-                    Icon="Save"
-                    Command="{x:Bind SaveInkFileCommand}" />
-                <AppBarButton
-                    BorderBrush="Transparent"
-                    BorderThickness="0,0,0,0"
-                    x:Uid="InkDraw_ExportAsImageButton"
-                    Icon="Download"
-                    Command="{x:Bind ExportAsImageCommand}" />
-                <AppBarSeparator/>
-                <AppBarButton
-                    BorderBrush="Transparent"
-                    BorderThickness="0,0,0,0"
-                    x:Uid="InkDraw_ClearAllButton"
-                    Icon="Delete"
-                    Command="{x:Bind ClearAllCommand}" />
-            </CommandBar>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    x:Uid="InkDrawHeader"
+                    VerticalAlignment="Center"
+                    Margin="12,0,0,0" />
+                <InkToolbar
+                    Grid.Column="1"
+                    Margin="6,0,0,0"                    
+                    HorizontalAlignment="Center"
+                    Loaded="OnInkToolbarLoaded">
+                    <InkToolbarCustomToolButton
+                        x:Uid="InkDraw_LassoSelectionButton"
+                        Background="Transparent"
+                        IsChecked="{x:Bind EnableLassoSelection, Mode=TwoWay}">
+                        <FontIcon
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            Glyph="&#xEF20;" />
+                    </InkToolbarCustomToolButton>
+                    <InkToolbarCustomToggleButton
+                        x:Uid="InkDraw_TouchInkingButton"
+                        Background="Transparent"
+                        IsChecked="{x:Bind EnableTouch, Mode=TwoWay}">
+                        <FontIcon
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            Glyph="&#xED5F;" />
+                    </InkToolbarCustomToggleButton>
+                    <InkToolbarCustomToggleButton
+                        x:Uid="InkDraw_MouseInkingButton"
+                        Background="Transparent"
+                        IsChecked="{x:Bind EnableMouse, Mode=TwoWay}">
+                        <FontIcon
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            Glyph="&#xE962;" />
+                    </InkToolbarCustomToggleButton>
+                </InkToolbar>
+                <CommandBar
+                    Margin="6,0,0,0"
+                    Grid.Column="2"
+                    Background="Transparent"
+                    DefaultLabelPosition="Collapsed"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Left">
+                    <CommandBar.PrimaryCommands>
+                        <AppBarButton
+                            BorderBrush="Transparent"
+                            BorderThickness="0,0,0,0"
+                            x:Uid="InkDraw_CutButton"
+                            Icon="Cut"
+                            Command="{x:Bind CutCommand}" />
+                        <AppBarButton
+                            BorderBrush="Transparent"
+                            BorderThickness="0,0,0,0"
+                            x:Uid="InkDraw_CopyButton"
+                            Icon="Copy"
+                            Command="{x:Bind CopyCommand}" />
+                        <AppBarButton
+                            BorderBrush="Transparent"
+                            BorderThickness="0,0,0,0"
+                            x:Uid="InkDraw_PasteButton"
+                            Icon="Paste"
+                            Command="{x:Bind PasteCommand}" />
+                    </CommandBar.PrimaryCommands>
+                    <CommandBar.SecondaryCommands>
+                        <AppBarButton
+                            BorderBrush="Transparent"
+                            BorderThickness="0,0,0,0"
+                            x:Uid="InkDraw_ZoomInButton"
+                            Icon="ZoomIn"                       
+                            Command="{x:Bind ZoomInCommand}" />
+                        <AppBarButton
+                            BorderBrush="Transparent"
+                            BorderThickness="0,0,0,0"
+                            x:Uid="InkDraw_ZoomOutButton"
+                            Icon="ZoomOut"
+                            Command="{x:Bind ZoomOutCommand}" />
+                        <AppBarSeparator />
+                        <AppBarButton
+                            BorderBrush="Transparent"
+                            BorderThickness="0,0,0,0"
+                            x:Uid="InkDraw_UndoButton"
+                            Icon="Undo"
+                            Command="{x:Bind UndoCommand}" />
+                        <AppBarButton
+                            BorderBrush="Transparent"
+                            BorderThickness="0,0,0,0"
+                            x:Uid="InkDraw_RedoButton"
+                            Icon="Redo"
+                            Command="{x:Bind RedoCommand}" />
+                        <AppBarSeparator/>
+                        <AppBarButton
+                            BorderBrush="Transparent"
+                            BorderThickness="0,0,0,0"
+                            x:Uid="InkDraw_LoadInkFileButton"
+                            Icon="OpenFile"
+                            Command="{x:Bind LoadInkFileCommand}" />
+                        <AppBarButton
+                            BorderBrush="Transparent"
+                            BorderThickness="0,0,0,0"
+                            x:Uid="InkDraw_SaveInkFileButton"
+                            Icon="Save"
+                            Command="{x:Bind SaveInkFileCommand}" />
+                        <AppBarButton
+                            BorderBrush="Transparent"
+                            BorderThickness="0,0,0,0"
+                            x:Uid="InkDraw_ExportAsImageButton"
+                            Icon="Download"
+                            Command="{x:Bind ExportAsImageCommand}" />
+                        <AppBarSeparator/>
+                        <AppBarButton
+                            BorderBrush="Transparent"
+                            BorderThickness="0,0,0,0"
+                            x:Uid="InkDraw_ClearAllButton"
+                            Icon="Delete"
+                            Command="{x:Bind ClearAllCommand}" />
+                    </CommandBar.SecondaryCommands>
+                </CommandBar>
+            </Grid>
         </DataTemplate>
     </behaviors:NavigationViewBehavior.HeaderTemplate>
 
     <Grid
-        x:Name="ContentArea"
-        Margin="{StaticResource MediumLeftRightMargin}">
+        x:Name="ContentArea">
+        <!--Margin="{StaticResource MediumLeftRightMargin}"-->
         <ScrollViewer
             Name="canvasScroll"
             Grid.Row="1"
-            Margin="8,0,8,0"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
             ScrollViewer.HorizontalScrollBarVisibility="Auto"
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
