@@ -8,7 +8,7 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:behaviors="using:NavigationViewWinUI.Behaviors"
-    behaviors:NavigationViewBehavior.ShowHeader="False"
+    behaviors:NavigationViewBehavior.HeaderMode="Minimal"
     mc:Ignorable="d">
     <Page.Resources>
         <Style x:Key="BrowserButtonStyle" TargetType="Button">

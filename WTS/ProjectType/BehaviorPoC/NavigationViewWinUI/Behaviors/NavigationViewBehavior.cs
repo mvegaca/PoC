@@ -33,18 +33,18 @@ namespace NavigationViewWinUI.Behaviors
 
 
 
-        public static bool GetShowHeader(Page item)
+        public static NavigationViewHeaderMode GetHeaderMode(Page item)
         {
-            return (bool)item.GetValue(ShowHeaderProperty);
+            return (NavigationViewHeaderMode)item.GetValue(HeaderModeProperty);
         }
 
-        public static void SetShowHeader(Page item, bool value)
+        public static void SetHeaderMode(Page item, NavigationViewHeaderMode value)
         {
-            item.SetValue(ShowHeaderProperty, value);
+            item.SetValue(HeaderModeProperty, value);
         }
 
-        public static readonly DependencyProperty ShowHeaderProperty =
-            DependencyProperty.RegisterAttached("ShowHeader", typeof(bool), typeof(NavigationViewBehavior), new PropertyMetadata(true, (d, e) => _current.UpdateHeader()));
+        public static readonly DependencyProperty HeaderModeProperty =
+            DependencyProperty.RegisterAttached("HeaderMode", typeof(bool), typeof(NavigationViewBehavior), new PropertyMetadata(NavigationViewHeaderMode.Always, (d, e) => _current.UpdateHeader()));
 
         public static object GetHeader(Page item)
         {
@@ -89,7 +89,14 @@ namespace NavigationViewWinUI.Behaviors
         {
             if (NavigationService.Frame.Content is Page page)
             {
-                if (GetShowHeader(page))
+                var headerMode = GetHeaderMode(page);
+                if (headerMode == NavigationViewHeaderMode.Never)
+                {
+                    AssociatedObject.Header = null;
+                    AssociatedObject.AlwaysShowHeader = false;
+                    
+                }
+                else
                 {
                     var headerFromPage = page.GetValue(HeaderProperty);
                     if (headerFromPage != null)
@@ -100,12 +107,14 @@ namespace NavigationViewWinUI.Behaviors
                     {
                         AssociatedObject.Header = DefaultHeader;
                     }
-                    AssociatedObject.AlwaysShowHeader = true;
-                }
-                else
-                {
-                    AssociatedObject.Header = null;
-                    AssociatedObject.AlwaysShowHeader = false;
+                    if (headerMode == NavigationViewHeaderMode.Always)
+                    {
+                        AssociatedObject.AlwaysShowHeader = true;
+                    }
+                    else
+                    {
+                        AssociatedObject.AlwaysShowHeader = false;
+                    }
                 }
             }
         }

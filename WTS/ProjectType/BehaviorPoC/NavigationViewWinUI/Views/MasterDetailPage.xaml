@@ -9,7 +9,7 @@
     xmlns:model="using:NavigationViewWinUI.Models"
     xmlns:views="using:NavigationViewWinUI.Views"
     xmlns:behaviors="using:NavigationViewWinUI.Behaviors"
-    behaviors:NavigationViewBehavior.ShowHeader="False"
+    behaviors:NavigationViewBehavior.HeaderMode="Never"
     mc:Ignorable="d">
     <Page.Transitions>
         <TransitionCollection>
@@ -18,12 +18,12 @@
     </Page.Transitions>
     <Page.Resources>
         <DataTemplate x:Key="ItemTemplate" x:DataType="model:SampleOrder">
-            <Grid Height="50" Padding="0,4">
+            <Grid Height="60">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <FontIcon Grid.Column="0" FontSize="26" Glyph="{x:Bind Symbol}" VerticalAlignment="Center" />
+                <FontIcon Grid.Column="0" FontSize="32" Glyph="{x:Bind Symbol}" VerticalAlignment="Center" />
                 <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
                     <TextBlock Text="{x:Bind Company}" Style="{ThemeResource ListTitleStyle}"/>
                     <TextBlock Text="{x:Bind Status}" Style="{StaticResource ListSubTitleStyle}"/>
@@ -59,11 +59,11 @@
             DetailsTemplate="{StaticResource DetailsTemplate}"
             NoSelectionContentTemplate="{StaticResource NoSelectionContentTemplate}"
             MasterHeader="MasterDetail"
-            BorderBrush="#F6F6F6"
-            Background="#F6F6F6">
+            BorderBrush="Transparent"
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <controls:MasterDetailsView.MasterHeaderTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Height="40">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup>
                                 <VisualState>
@@ -79,7 +79,7 @@
                         <TextBlock
                             x:Name="headerText"
                             Text="{Binding}"
-                            Margin="0,14,12,12"
+                            VerticalAlignment="Center"
                             Style="{StaticResource ListTitleStyle}" />
                     </Grid>
                 </DataTemplate>

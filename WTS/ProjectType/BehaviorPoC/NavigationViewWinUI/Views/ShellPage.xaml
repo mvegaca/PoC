@@ -40,7 +40,7 @@
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>
             <behaviors:NavigationViewBehavior
-                DefaultHeader="{x:Bind ViewModel.Selected.Content}">
+                DefaultHeader="{x:Bind ViewModel.Selected.Content, Mode=OneWay}">
                 <behaviors:NavigationViewBehavior.DefaultHeaderTemplate>
                     <DataTemplate>
                         <Grid>
