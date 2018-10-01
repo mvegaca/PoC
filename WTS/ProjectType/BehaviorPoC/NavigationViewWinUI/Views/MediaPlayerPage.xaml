@@ -8,7 +8,7 @@
     behaviors:NavigationViewHeaderBehavior.HeaderMode="Minimal"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
-    <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+    <Grid>
         <MediaPlayerElement x:Name="mpe"
                             AutoPlay="True"
                             AreTransportControlsEnabled="True"

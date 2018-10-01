@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
-    <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+    <Grid>
         <MediaPlayerElement x:Name="mpe"
                             Margin="24"
                             AutoPlay="True"
