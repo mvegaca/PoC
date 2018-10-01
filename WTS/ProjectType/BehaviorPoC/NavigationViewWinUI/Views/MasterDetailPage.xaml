@@ -47,9 +47,43 @@
                     Style="{StaticResource SubtitleTextBlockStyle}" />
             </Grid>
         </DataTemplate>
+
+        <DataTemplate x:Key="MasterHeaderTemplate">
+            <Grid Height="40">
+                <TextBlock
+                    x:Name="headerText"
+                    Text="{Binding}"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource ListTitleStyle}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="MinimalMasterHeaderTemplate">
+            <Grid Height="40">
+                <TextBlock
+                    x:Name="headerText"
+                    Margin="96,0,0,0"
+                    Text="{Binding}"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource ListTitleStyle}" />
+            </Grid>
+        </DataTemplate>
     </Page.Resources>
 
     <Grid x:Name="ContentArea">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <!--641 is the default CompactModeThresholdWidth in NavigationView -->
+                        <AdaptiveTrigger MinWindowWidth="641" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MasterDetailsViewControl.MasterHeaderTemplate" Value="{StaticResource MasterHeaderTemplate}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <controls:MasterDetailsView
             x:Name="MasterDetailsViewControl"
             ItemsSource="{x:Bind ViewModel.SampleItems}"
@@ -59,30 +93,7 @@
             NoSelectionContentTemplate="{StaticResource NoSelectionContentTemplate}"
             MasterHeader="MasterDetail"
             BorderBrush="Transparent"
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <controls:MasterDetailsView.MasterHeaderTemplate>
-                <DataTemplate>
-                    <Grid Height="40">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup>
-                                <VisualState>
-                                    <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowHeight="700" />
-                                    </VisualState.StateTriggers>
-                                    <VisualState.Setters>
-                                        <Setter Target="headerText.Margin" Value="120" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <TextBlock
-                            x:Name="headerText"
-                            Text="{Binding}"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource ListTitleStyle}" />
-                    </Grid>
-                </DataTemplate>
-            </controls:MasterDetailsView.MasterHeaderTemplate>
-        </controls:MasterDetailsView>
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
+            MasterHeaderTemplate="{StaticResource MinimalMasterHeaderTemplate}"/>
     </Grid>
 </Page>

@@ -18,7 +18,7 @@
             <TextBlock
                 x:Uid="Settings_Personalization"
                 Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <StackPanel Margin="{StaticResource SettingsSubheaderMargin}">
+            <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
                 <TextBlock
                     x:Uid="Settings_Theme"
                      Style="{ThemeResource BodyTextBlockStyle}" />

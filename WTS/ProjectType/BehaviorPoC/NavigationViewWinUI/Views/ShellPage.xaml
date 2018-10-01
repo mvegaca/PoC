@@ -17,7 +17,7 @@
         SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
         IsBackButtonVisible="Visible"
         IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
-        IsSettingsVisible="True"
+        IsSettingsVisible="True"        
         Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
         <winui:NavigationView.MenuItems>
             <!--
