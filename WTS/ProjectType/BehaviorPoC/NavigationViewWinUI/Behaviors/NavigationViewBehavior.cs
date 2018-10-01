@@ -10,6 +10,13 @@ using Windows.UI.Xaml;
 
 namespace NavigationViewWinUI.Behaviors
 {
+    public enum NavigationViewHeaderMode
+    {
+        Always,
+        Never,
+        Minimal
+    }
+
     public class NavigationViewBehavior : Behavior<WinUI.NavigationView>
     {
         private static NavigationViewBehavior _current;

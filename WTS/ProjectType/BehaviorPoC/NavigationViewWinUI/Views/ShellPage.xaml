@@ -31,6 +31,12 @@
             <winui:NavigationViewItem x:Uid="Shell_ImageGallery" Icon="Document" helpers:NavHelper.NavigateTo="views:ImageGalleryPage" />
             <winui:NavigationViewItem x:Uid="Shell_MasterDetail" Icon="Document" helpers:NavHelper.NavigateTo="views:MasterDetailPage" />
             <winui:NavigationViewItem x:Uid="Shell_InkDraw" Icon="Document" helpers:NavHelper.NavigateTo="views:InkDrawPage" />
+            <winui:NavigationViewItem x:Uid="Shell_MediaPlayer" Icon="Document" helpers:NavHelper.NavigateTo="views:MediaPlayerPage" />
+            <winui:NavigationViewItem x:Uid="Shell_MediaPlayerWithMargins" Icon="Document" helpers:NavHelper.NavigateTo="views:MediaPlayerWithMarginsPage" />
+            <winui:NavigationViewItem x:Uid="Shell_WebView" Icon="Document" helpers:NavHelper.NavigateTo="views:WebViewPage" />
+            <winui:NavigationViewItem x:Uid="Shell_WebViewWithMargins" Icon="Document" helpers:NavHelper.NavigateTo="views:WebViewWithMarginsPage" />
+            <winui:NavigationViewItem x:Uid="Shell_Map" Icon="Document" helpers:NavHelper.NavigateTo="views:MapPage" />
+            <winui:NavigationViewItem x:Uid="Shell_MapWithMargins" Icon="Document" helpers:NavHelper.NavigateTo="views:MapWithMarginsPage" />
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>
             <behaviors:NavigationViewBehavior

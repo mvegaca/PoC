@@ -376,4 +376,124 @@
     <value>MasterDetail</value>
     <comment>Navigation view item name for MasterDetail</comment>
   </data>
+  <data name="Shell_MediaPlayer.Content" xml:space="preserve">
+    <value>MediaPlayer</value>
+    <comment>Navigation view item name for MediaPlayer</comment>
+  </data>
+  <data name="Shell_MediaPlayerWithMargins.Content" xml:space="preserve">
+    <value>MediaPlayerWithMargins</value>
+    <comment>Navigation view item name for MediaPlayerWithMargins</comment>
+  </data>
+  <data name="WebView_FailedMessage.Text" xml:space="preserve">
+    <value>Page failed to load. Check connection and retry.</value>
+    <comment>Load failure message for WebView</comment>
+  </data>
+  <data name="WebView_Loading.Text" xml:space="preserve">
+    <value>Loading...</value>
+    <comment>Loading message for WebView</comment>
+  </data>
+  <data name="WebView_Retry.Content" xml:space="preserve">
+    <value>retry</value>
+    <comment>Retry button for WebView</comment>
+  </data>
+    <data name="WebView_BrowserBackButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Back</value>
+    <comment>WebView back button automation name property for WebView</comment>
+  </data>
+  <data name="WebView_BrowserBackButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Back</value>
+    <comment>Back button automation tooltip property for WebView</comment>
+  </data>
+  <data name="WebView_BrowserForwardButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Forward</value>
+    <comment>Forward button automation name property for WebView</comment>
+  </data>
+  <data name="WebView_BrowserForwardButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Forward</value>
+    <comment>Forward button automation tooltip property for WebView</comment>
+  </data>
+  <data name="WebView_RefreshBrowserButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Refresh</value>
+    <comment>Refresh button automation name property for WebView</comment>
+  </data>
+  <data name="WebView_RefreshBrowserButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Refresh</value>
+    <comment>Refresh button automation tooltip property for WebView</comment>
+  </data>
+  <data name="WebView_OpenInBrowserButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Open in browser</value>
+    <comment>Open in browser button automation name property for WebView</comment>
+  </data>
+  <data name="WebView_OpenInBrowserButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Open in browser</value>
+    <comment>Open in browser button automation tooltip property for WebView</comment>
+  </data>
+  <data name="Shell_WebView.Content" xml:space="preserve">
+    <value>WebView</value>
+    <comment>Navigation view item name for WebView</comment>
+  </data>
+  <data name="WebViewWithMargins_FailedMessage.Text" xml:space="preserve">
+    <value>Page failed to load. Check connection and retry.</value>
+    <comment>Load failure message for WebViewWithMargins</comment>
+  </data>
+  <data name="WebViewWithMargins_Loading.Text" xml:space="preserve">
+    <value>Loading...</value>
+    <comment>Loading message for WebViewWithMargins</comment>
+  </data>
+  <data name="WebViewWithMargins_Retry.Content" xml:space="preserve">
+    <value>retry</value>
+    <comment>Retry button for WebViewWithMargins</comment>
+  </data>
+    <data name="WebViewWithMargins_BrowserBackButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Back</value>
+    <comment>WebView back button automation name property for WebViewWithMargins</comment>
+  </data>
+  <data name="WebViewWithMargins_BrowserBackButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Back</value>
+    <comment>Back button automation tooltip property for WebViewWithMargins</comment>
+  </data>
+  <data name="WebViewWithMargins_BrowserForwardButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Forward</value>
+    <comment>Forward button automation name property for WebViewWithMargins</comment>
+  </data>
+  <data name="WebViewWithMargins_BrowserForwardButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Forward</value>
+    <comment>Forward button automation tooltip property for WebViewWithMargins</comment>
+  </data>
+  <data name="WebViewWithMargins_RefreshBrowserButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Refresh</value>
+    <comment>Refresh button automation name property for WebViewWithMargins</comment>
+  </data>
+  <data name="WebViewWithMargins_RefreshBrowserButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Refresh</value>
+    <comment>Refresh button automation tooltip property for WebViewWithMargins</comment>
+  </data>
+  <data name="WebViewWithMargins_OpenInBrowserButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Open in browser</value>
+    <comment>Open in browser button automation name property for WebViewWithMargins</comment>
+  </data>
+  <data name="WebViewWithMargins_OpenInBrowserButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Open in browser</value>
+    <comment>Open in browser button automation tooltip property for WebViewWithMargins</comment>
+  </data>
+  <data name="Shell_WebViewWithMargins.Content" xml:space="preserve">
+    <value>WebViewWithMargins</value>
+    <comment>Navigation view item name for WebViewWithMargins</comment>
+  </data>
+  <data name="Map_YourLocation" xml:space="preserve">
+    <value>Your location</value>
+    <comment>Your location text on map page</comment>
+  </data>
+  <data name="ExceptionLocationServiceStartListeningCanNotBeCalled" xml:space="preserve">
+    <value>The StartListening method cannot be called before the InitializeAsync method.</value>
+    <comment>Start listening cannot be called before the initialize in location service</comment>
+  </data>
+  <data name="Shell_Map.Content" xml:space="preserve">
+    <value>Map</value>
+    <comment>Navigation view item name for Map</comment>
+  </data>
+  <data name="Shell_MapWithMargins.Content" xml:space="preserve">
+    <value>MapWithMargins</value>
+    <comment>Navigation view item name for MapWithMargins</comment>
+  </data>
 </root>
