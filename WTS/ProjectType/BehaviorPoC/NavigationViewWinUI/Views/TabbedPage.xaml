@@ -11,7 +11,7 @@
     New Margin
     mvegaca
     -->
-    <Grid x:Name="ContentArea" Margin="12,0,12,0">
+    <Grid x:Name="ContentArea" Margin="{StaticResource SmallLeftRightMargin}">
         <Pivot
             x:Name="Items">
             <Pivot.HeaderTemplate>

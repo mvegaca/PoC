@@ -10,12 +10,7 @@
 
     <Grid
         x:Name="ContentArea"
-        Margin="24,0,24,0">
-        <!--
-        Margin="19,0,19,0"
-        mvegaca
-        Margin="{StaticResource MediumLeftRightMargin}"
-        -->
+        Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <!--

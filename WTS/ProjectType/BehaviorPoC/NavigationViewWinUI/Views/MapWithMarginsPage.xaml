@@ -10,7 +10,7 @@
 
     <Grid>
         <maps:MapControl
-            Margin="24"
+            Margin="{StaticResource MediumLeftTopRightBottomMargin}"
             x:Name="mapControl"
             ZoomLevel="{x:Bind ViewModel.ZoomLevel, Mode=OneWay}"
             Center="{x:Bind ViewModel.Center, Mode=OneWay}"/>

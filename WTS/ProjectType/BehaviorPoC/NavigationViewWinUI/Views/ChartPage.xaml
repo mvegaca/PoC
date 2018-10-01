@@ -10,7 +10,7 @@
 
     <Grid
         x:Name="ContentArea"
-        Margin="24,0,24,0">
+        Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <tc:RadCartesianChart>

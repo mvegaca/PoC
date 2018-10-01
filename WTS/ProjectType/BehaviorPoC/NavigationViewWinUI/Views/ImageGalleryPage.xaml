@@ -17,11 +17,7 @@
             ItemsSource="{x:Bind ViewModel.Source}"
             IsItemClickEnabled="True"
             SelectionMode="None"
-            Margin="24,0,24,0">
-            <!--
-            mvegaca
-            Padding="{StaticResource MediumLeftRightMargin}"
-            -->
+            Padding="{StaticResource MediumLeftRightMargin}">
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="ItemClick">
                     <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemSelectedCommand}" />

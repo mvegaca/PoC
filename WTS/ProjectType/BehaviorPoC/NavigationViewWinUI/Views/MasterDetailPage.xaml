@@ -24,7 +24,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <FontIcon Grid.Column="0" FontSize="32" Glyph="{x:Bind Symbol}" VerticalAlignment="Center" />
-                <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                <StackPanel Grid.Column="1" Margin="{StaticResource SmallLeftMargin}" VerticalAlignment="Center">
                     <TextBlock Text="{x:Bind Company}" Style="{ThemeResource ListTitleStyle}"/>
                     <TextBlock Text="{x:Bind Status}" Style="{StaticResource ListSubTitleStyle}"/>
                 </StackPanel>
@@ -52,7 +52,6 @@
     <Grid x:Name="ContentArea">
         <controls:MasterDetailsView
             x:Name="MasterDetailsViewControl"
-            Margin="0,0,0,0"
             ItemsSource="{x:Bind ViewModel.SampleItems}"
             SelectedItem="{x:Bind ViewModel.Selected, Mode=TwoWay}"
             ItemTemplate="{StaticResource ItemTemplate}"

@@ -75,7 +75,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid Margin="24">
+    <Grid Margin="{StaticResource MediumLeftTopRightBottomMargin}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />

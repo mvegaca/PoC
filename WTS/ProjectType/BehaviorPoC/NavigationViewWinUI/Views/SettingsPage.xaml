@@ -12,11 +12,7 @@
         <helper:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
     </Page.Resources>
 
-    <Grid Margin="24,0,24,0">
-        <!--
-        mvegaca
-        Margin="{StaticResource MediumLeftRightMargin}"
-        -->
+    <Grid Margin="{StaticResource MediumLeftRightMargin}">
         <StackPanel
             x:Name="ContentArea">
             <TextBlock
@@ -27,7 +23,7 @@
                     x:Uid="Settings_Theme"
                      Style="{ThemeResource BodyTextBlockStyle}" />
 
-                <StackPanel Margin="{StaticResource EightTopMargin}">
+                <StackPanel Margin="{StaticResource ExtraSmallTopMargin}">
                     <RadioButton
                         x:Uid="Settings_Theme_Light"
                         GroupName="AppTheme"
@@ -65,18 +61,18 @@
                 x:Uid="Settings_About"
                  Style="{ThemeResource SubtitleTextBlockStyle}" />
 
-            <StackPanel Margin="{StaticResource EightTopMargin}">
+            <StackPanel Margin="{StaticResource ExtraSmallTopMargin}">
                 <TextBlock
                     Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}"
                     Style="{ThemeResource BodyTextBlockStyle}" />
                 <TextBlock
                     x:Uid="Settings_AboutDescription"
-                    Margin="{StaticResource EightTopMargin}"
+                    Margin="{StaticResource ExtraSmallTopMargin}"
                     Style="{ThemeResource BodyTextBlockStyle}" />
 
                 <HyperlinkButton
                     x:Uid="Settings_PrivacyTermsLink"
-                    Margin="{StaticResource EightTopMargin}" />
+                    Margin="{StaticResource ExtraSmallTopMargin}" />
             </StackPanel>
         </StackPanel>
     </Grid>    
