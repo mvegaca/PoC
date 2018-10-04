@@ -1,8 +1,5 @@
 ﻿using System;
-using NavigationViewWinUI.Services;
 using NavigationViewWinUI.ViewModels;
-using Windows.Foundation.Metadata;
-using WinUI = Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls;
 
 namespace NavigationViewWinUI.Views
@@ -17,8 +14,6 @@ namespace NavigationViewWinUI.Views
             InitializeComponent();
             DataContext = ViewModel;
             ViewModel.Initialize(shellFrame, winUiNavigationView, KeyboardAccelerators);
-            //KeyboardAccelerators.Add(ActivationService.AltLeftKeyboardAccelerator);
-            //KeyboardAccelerators.Add(ActivationService.BackKeyboardAccelerator);
         }
     }
 }

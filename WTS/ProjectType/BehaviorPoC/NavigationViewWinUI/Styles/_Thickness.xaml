@@ -5,6 +5,10 @@
     <!--Custom size margins-->
     <Thickness x:Key="DetailPageMargin">52,40,52,0</Thickness>
 
+    <!--Big size margins-->
+    <Thickness x:Key="BigLeftRightMargin">48,0,48,0</Thickness>
+    <Thickness x:Key="BigRightMargin">0,0,48,0</Thickness>
+    
     <!--Medium size margins-->
     <Thickness x:Key="MediumTopMargin">0,24,0,0</Thickness>
     <Thickness x:Key="MediumLeftRightMargin">24,0,24,0</Thickness>

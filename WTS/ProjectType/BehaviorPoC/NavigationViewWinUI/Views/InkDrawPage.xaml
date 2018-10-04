@@ -9,157 +9,117 @@
     behaviors:NavigationViewHeaderBehavior.HeaderContext="{x:Bind ViewModel, Mode=OneWay}"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
-    <behaviors:NavigationViewHeaderBehavior.HeaderTemplate>
-        <DataTemplate x:DataType="viewModels:InkDrawViewModel">
+
+    <Page.Resources>
+
+        <DataTemplate x:Key="BigHeaderTemplate" x:DataType="viewModels:InkDrawViewModel">
             <Grid>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                    x:Uid="InkDrawHeader"
-                    VerticalAlignment="Center"
-                    Margin="{StaticResource SmallLeftMargin}" />
-                    <CommandBar
-                        Margin="{StaticResource SmallLeftMargin}"
-                        Grid.Column="1"
-                        Background="Transparent"
-                        DefaultLabelPosition="Collapsed"
-                        HorizontalAlignment="Left"
-                        HorizontalContentAlignment="Left">
-                        <CommandBar.PrimaryCommands>
-                            <AppBarButton
-                                BorderBrush="Transparent"
-                                BorderThickness="0,0,0,0"
-                                x:Uid="InkDraw_CutButton"
-                                Icon="Cut"
-                                Command="{x:Bind CutCommand}" />
-                            <AppBarButton
-                                BorderBrush="Transparent"
-                                BorderThickness="0,0,0,0"
-                                x:Uid="InkDraw_CopyButton"
-                                Icon="Copy"
-                                Command="{x:Bind CopyCommand}" />
-                            <AppBarButton
-                                BorderBrush="Transparent"
-                                BorderThickness="0,0,0,0"
-                                x:Uid="InkDraw_PasteButton"
-                                Icon="Paste"
-                                Command="{x:Bind PasteCommand}" />
-                        </CommandBar.PrimaryCommands>
-                        <CommandBar.SecondaryCommands>
-                            <AppBarButton
-                                BorderBrush="Transparent"
-                                BorderThickness="0,0,0,0"
-                                x:Uid="InkDraw_ZoomInButton"
-                                Icon="ZoomIn"                       
-                                Command="{x:Bind ZoomInCommand}" />
-                            <AppBarButton
-                                BorderBrush="Transparent"
-                                BorderThickness="0,0,0,0"
-                                x:Uid="InkDraw_ZoomOutButton"
-                                Icon="ZoomOut"
-                                Command="{x:Bind ZoomOutCommand}" />
-                            <AppBarSeparator />
-                            <AppBarButton
-                                BorderBrush="Transparent"
-                                BorderThickness="0,0,0,0"
-                                x:Uid="InkDraw_UndoButton"
-                                Icon="Undo"
-                                Command="{x:Bind UndoCommand}" />
-                            <AppBarButton
-                                BorderBrush="Transparent"
-                                BorderThickness="0,0,0,0"
-                                x:Uid="InkDraw_RedoButton"
-                                Icon="Redo"
-                                Command="{x:Bind RedoCommand}" />
-                            <AppBarSeparator/>
-                            <AppBarButton
-                                BorderBrush="Transparent"
-                                BorderThickness="0,0,0,0"
-                                x:Uid="InkDraw_LoadInkFileButton"
-                                Icon="OpenFile"
-                                Command="{x:Bind LoadInkFileCommand}" />
-                            <AppBarButton
-                                BorderBrush="Transparent"
-                                BorderThickness="0,0,0,0"
-                                x:Uid="InkDraw_SaveInkFileButton"
-                                Icon="Save"
-                                Command="{x:Bind SaveInkFileCommand}" />
-                            <AppBarButton
-                                BorderBrush="Transparent"
-                                BorderThickness="0,0,0,0"
-                                x:Uid="InkDraw_ExportAsImageButton"
-                                Icon="Download"
-                                Command="{x:Bind ExportAsImageCommand}" />
-                            <AppBarSeparator/>
-                            <AppBarButton
-                                BorderBrush="Transparent"
-                                BorderThickness="0,0,0,0"
-                                x:Uid="InkDraw_ClearAllButton"
-                                Icon="Delete"
-                                Command="{x:Bind ClearAllCommand}" />
-                        </CommandBar.SecondaryCommands>
-                    </CommandBar>
-                </Grid>
-                <Grid
-                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                    HorizontalAlignment="Center">
-                    <InkToolbar
-                        Loaded="OnInkToolbarLoaded">
-                        <InkToolbarCustomToolButton
-                            x:Uid="InkDraw_LassoSelectionButton"
-                            Background="Transparent"
-                            IsChecked="{x:Bind EnableLassoSelection, Mode=TwoWay}">
-                            <FontIcon
-                                FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                Glyph="&#xEF20;" />
-                        </InkToolbarCustomToolButton>
-                        <InkToolbarCustomToggleButton
-                            x:Uid="InkDraw_TouchInkingButton"
-                            Background="Transparent"
-                            IsChecked="{x:Bind EnableTouch, Mode=TwoWay}">
-                            <FontIcon
-                                FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                Glyph="&#xED5F;" />
-                        </InkToolbarCustomToggleButton>
-                        <InkToolbarCustomToggleButton
-                            x:Uid="InkDraw_MouseInkingButton"
-                            Background="Transparent"
-                            IsChecked="{x:Bind EnableMouse, Mode=TwoWay}">
-                            <FontIcon
-                                FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                Glyph="&#xE962;" />
-                        </InkToolbarCustomToggleButton>
-                    </InkToolbar>
-                </Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition MinWidth="384" Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Uid="InkDrawHeader" Margin="{StaticResource SmallLeftMargin}" MaxLines="1" MaxWidth="110" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+
+                <InkToolbar Grid.Column="1" HorizontalAlignment="Center" Background="Transparent" Loaded="OnInkToolbarLoaded">
+                    <InkToolbarCustomToolButton x:Uid="InkDraw_LassoSelectionButton" Background="Transparent" IsChecked="{x:Bind EnableLassoSelection, Mode=TwoWay}">
+                        <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xEF20;" />
+                    </InkToolbarCustomToolButton>
+                    <InkToolbarCustomToggleButton x:Uid="InkDraw_TouchInkingButton" Background="Transparent" IsChecked="{x:Bind EnableTouch, Mode=TwoWay}">
+                        <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xED5F;" />
+                    </InkToolbarCustomToggleButton>
+                    <InkToolbarCustomToggleButton x:Uid="InkDraw_MouseInkingButton" Background="Transparent" IsChecked="{x:Bind EnableMouse, Mode=TwoWay}">
+                        <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE962;" />
+                    </InkToolbarCustomToggleButton>
+                </InkToolbar>
+
+                <CommandBar x:Name="topBar" Grid.Column="2" Style="{StaticResource InkCommandBarStyle}">
+                    <CommandBar.PrimaryCommands>
+                        <AppBarButton x:Uid="InkDraw_ZoomInButton" Icon="ZoomIn" Command="{x:Bind ZoomInCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                        <AppBarButton x:Uid="InkDraw_ZoomOutButton" Icon="ZoomOut" Command="{x:Bind ZoomOutCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                    </CommandBar.PrimaryCommands>
+                    <CommandBar.SecondaryCommands>
+                        <AppBarButton x:Uid="InkDraw_CutButton" Icon="Cut" Command="{x:Bind CutCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                        <AppBarButton x:Uid="InkDraw_CopyButton" Icon="Copy" Command="{x:Bind CopyCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                        <AppBarButton x:Uid="InkDraw_PasteButton" Icon="Paste" Command="{x:Bind PasteCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                        <AppBarSeparator />
+                        <AppBarButton x:Uid="InkDraw_UndoButton" Icon="Undo" Command="{x:Bind UndoCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                        <AppBarButton x:Uid="InkDraw_RedoButton" Icon="Redo" Command="{x:Bind RedoCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                        <AppBarSeparator/>
+                        <AppBarButton x:Uid="InkDraw_LoadInkFileButton" Icon="OpenFile" Command="{x:Bind LoadInkFileCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                        <AppBarButton x:Uid="InkDraw_SaveInkFileButton" Icon="Save" Command="{x:Bind SaveInkFileCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                        <AppBarButton x:Uid="InkDraw_ExportAsImageButton" Icon="Download" Command="{x:Bind ExportAsImageCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                        <AppBarSeparator/>
+                        <AppBarButton x:Uid="InkDraw_ClearAllButton" Icon="Delete" Command="{x:Bind ClearAllCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                    </CommandBar.SecondaryCommands>
+                </CommandBar>
             </Grid>
         </DataTemplate>
-    </behaviors:NavigationViewHeaderBehavior.HeaderTemplate>
+
+        <DataTemplate x:Key="SmallHeaderTemplate" x:DataType="viewModels:InkDrawViewModel">
+            <InkToolbar  HorizontalAlignment="Center" Loaded="OnInkToolbarLoaded">
+                <InkToolbarCustomToolButton x:Uid="InkDraw_LassoSelectionButton" Background="Transparent" IsChecked="{x:Bind EnableLassoSelection, Mode=TwoWay}">
+                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xEF20;" />
+                </InkToolbarCustomToolButton>
+                <InkToolbarCustomToggleButton x:Uid="InkDraw_TouchInkingButton" Background="Transparent" IsChecked="{x:Bind EnableTouch, Mode=TwoWay}">
+                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xED5F;" />
+                </InkToolbarCustomToggleButton>
+                <InkToolbarCustomToggleButton x:Uid="InkDraw_MouseInkingButton" Background="Transparent" IsChecked="{x:Bind EnableMouse, Mode=TwoWay}">
+                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE962;" />
+                </InkToolbarCustomToggleButton>
+            </InkToolbar>
+        </DataTemplate>
+
+    </Page.Resources>
 
     <Grid
         x:Name="ContentArea">
-        <ScrollViewer
-            Name="canvasScroll"
-            Grid.Row="1"
-            ScrollViewer.VerticalScrollBarVisibility="Auto"
-            ScrollViewer.HorizontalScrollBarVisibility="Auto"
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
-            ZoomMode="Enabled">
-            <Grid
-                Background="{StaticResource InkCanvasBackground}"
-                Width="{Binding ElementName=inkCanvas, Path=Width}"
-                Height="{Binding ElementName=inkCanvas, Path=Height}">
-                <InkCanvas
-                    x:Name="inkCanvas"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"/>
-                <Canvas
-                    x:Name="selectionCanvas"
-                    Width="{Binding ElementName=inkCanvas, Path=Width}"
-                    Height="{Binding ElementName=inkCanvas, Path=Height}"/>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="visualStateGroup" CurrentStateChanged="VisualStateGroup_CurrentStateChanged">
+                <VisualState x:Name="SmallVisualState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="BigVisualState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer x:Name="canvasScroll" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" ZoomMode="Enabled">
+            <Grid Background="{StaticResource InkCanvasBackground}" Width="{Binding ElementName=inkCanvas, Path=Width}" Height="{Binding ElementName=inkCanvas, Path=Height}">
+                <InkCanvas x:Name="inkCanvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Canvas x:Name="selectionCanvas" Width="{Binding ElementName=inkCanvas, Path=Width}" Height="{Binding ElementName=inkCanvas, Path=Height}"/>
             </Grid>
         </ScrollViewer>
+
+        <CommandBar x:Name="bottomCommandBar" Grid.Row="1" Style="{StaticResource InkCommandBarStyle}">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Uid="InkDraw_ZoomInButton" Icon="ZoomIn" Command="{x:Bind ViewModel.ZoomInCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                <AppBarButton x:Uid="InkDraw_ZoomOutButton" Icon="ZoomOut" Command="{x:Bind ViewModel.ZoomOutCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Uid="InkDraw_CutButton" Icon="Cut" Command="{x:Bind ViewModel.CutCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                <AppBarButton x:Uid="InkDraw_CopyButton" Icon="Copy" Command="{x:Bind ViewModel.CopyCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                <AppBarButton x:Uid="InkDraw_PasteButton" Icon="Paste" Command="{x:Bind ViewModel.PasteCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                <AppBarSeparator />
+                <AppBarButton x:Uid="InkDraw_UndoButton" Icon="Undo" Command="{x:Bind ViewModel.UndoCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                <AppBarButton x:Uid="InkDraw_RedoButton" Icon="Redo" Command="{x:Bind ViewModel.RedoCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                <AppBarSeparator/>
+                <AppBarButton x:Uid="InkDraw_LoadInkFileButton" Icon="OpenFile" Command="{x:Bind ViewModel.LoadInkFileCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                <AppBarButton x:Uid="InkDraw_SaveInkFileButton" Icon="Save" Command="{x:Bind ViewModel.SaveInkFileCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                <AppBarButton x:Uid="InkDraw_ExportAsImageButton" Icon="Download" Command="{x:Bind ViewModel.ExportAsImageCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+                <AppBarSeparator/>
+                <AppBarButton x:Uid="InkDraw_ClearAllButton" Icon="Delete" Command="{x:Bind ViewModel.ClearAllCommand}" Style="{StaticResource InkAppBarButtonStyle}" />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
     </Grid>
 </Page>
