@@ -4,16 +4,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:ImageGalleryApp.Models"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:models="using:ImageGalleryApp.Models"    
     mc:Ignorable="d">
+
     <Grid>
         <FlipView
             x:Name="flipView"
-            animations:Connected.Key="galleryAnimationKey"
-            animations:Connected.AnchorElement="{Binding ElementName=detailImage}"
             ItemsSource="{x:Bind ViewModel.Source}"
-            SelectedItem="{x:Bind ViewModel.SelectedImage, Mode=TwoWay}">
+            SelectedItem="{x:Bind ViewModel.SelectedImage, Mode=TwoWay}"
+            animations:Connected.Key="galleryAnimationKey"
+            animations:Connected.AnchorElement="{Binding ElementName=detailImage}">
             <FlipView.ItemTemplate>
                 <DataTemplate x:DataType="models:SampleImage">
                     <Viewbox StretchDirection="DownOnly">
