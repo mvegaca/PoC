@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using AADSampleApp.Views;
 using Microsoft.Identity.Client;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -16,19 +17,13 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace ADDConnectApp
+namespace AADSampleApp
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
     sealed partial class App : Application
     {
-        //Below is the clientId of your app registration. 
-        //You have to replace the below with the Application Id for your app registration
-        private static string ClientId = "aa41874f-ce17-4add-bf2d-c6ca97b1b929";
-
-        public static PublicClientApplication PublicClientApp = new PublicClientApplication(ClientId);
-
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
