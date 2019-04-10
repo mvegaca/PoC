@@ -16,11 +16,29 @@ namespace IntegratedSuspendAndResumeMockup.Activation
             _navElement = navElement;
         }
 
-        protected override async Task HandleInternalAsync(LaunchActivatedEventArgs args)
+        protected override async Task HandleInternalAsync(LaunchActivatedEventArgs args, SuspendAndResumeArgs suspendAndResumeArgs = null)
         {
-            // When the navigation stack isn't restored, navigate to the first page and configure
-            // the new page by passing required information in the navigation parameter
-            NavigationService.Navigate(_navElement, args.Arguments);
+            if (suspendAndResumeArgs != null)
+            {
+                var activationArgs = new ActivationHandlerArgs()
+                {
+                    NavigationParameter = args.Arguments,
+                    SuspensionState = suspendAndResumeArgs.SuspensionState
+                };
+
+                NavigationService.Navigate(suspendAndResumeArgs.Target, activationArgs);
+            }
+            else
+            {
+                // When the navigation stack isn't restored, navigate to the first page and configure
+                // the new page by passing required information in the navigation parameter
+                var activationArgs = new ActivationHandlerArgs()
+                {
+                    NavigationParameter = args.Arguments
+                };
+
+                NavigationService.Navigate(_navElement, activationArgs);
+            }
 
             await Task.CompletedTask;
         }

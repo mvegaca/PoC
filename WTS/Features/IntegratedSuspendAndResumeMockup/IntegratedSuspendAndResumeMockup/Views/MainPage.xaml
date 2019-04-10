@@ -9,10 +9,18 @@
     <Grid
         x:Name="ContentArea"
         Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="200" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Text="The text you write here will be preserved using suspend and resume." />
+            <TextBox
+                Grid.Row="1"
+                Margin="0,24,0,0"
+                Text="{x:Bind ViewModel.Text, Mode=TwoWay}" />
         </Grid>
     </Grid>
 </Page>

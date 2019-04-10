@@ -62,14 +62,25 @@ namespace IntegratedSuspendAndResumeMockup.Services
             await Task.CompletedTask;
         }
 
+        private async Task<SuspendAndResumeArgs> GetSuspendAndResumeArgsAsync(IActivatedEventArgs activationArgs)
+        {
+            if (activationArgs.PreviousExecutionState == ApplicationExecutionState.Terminated)
+            {
+                return await Singleton<SuspendAndResumeService>.Instance.GetSuspendAndResumeArgs();
+            }
+
+            return null;
+        }
+
         private async Task HandleActivationAsync(object activationArgs)
         {
+            var suspendAndResumeArgs = await GetSuspendAndResumeArgsAsync(activationArgs as IActivatedEventArgs);
+
             var activationHandler = GetActivationHandlers()
                                                 .FirstOrDefault(h => h.CanHandle(activationArgs));
-
             if (activationHandler != null)
             {
-                await activationHandler.HandleAsync(activationArgs);
+                await activationHandler.HandleAsync(activationArgs, suspendAndResumeArgs);
             }
 
             if (IsInteractive(activationArgs))
@@ -77,7 +88,7 @@ namespace IntegratedSuspendAndResumeMockup.Services
                 var defaultHandler = new DefaultLaunchActivationHandler(_defaultNavItem);
                 if (defaultHandler.CanHandle(activationArgs))
                 {
-                    await defaultHandler.HandleAsync(activationArgs);
+                    await defaultHandler.HandleAsync(activationArgs, suspendAndResumeArgs);
                 }
             }
         }
@@ -91,7 +102,6 @@ namespace IntegratedSuspendAndResumeMockup.Services
         private IEnumerable<ActivationHandler> GetActivationHandlers()
         {
             yield return Singleton<SchemeActivationHandler>.Instance;
-            yield return Singleton<SuspendAndResumeService>.Instance;
         }
 
         private bool IsInteractive(object args)

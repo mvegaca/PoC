@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using IntegratedSuspendAndResumeMockup.Services;
 
 namespace IntegratedSuspendAndResumeMockup.Activation
 {
@@ -8,17 +9,17 @@ namespace IntegratedSuspendAndResumeMockup.Activation
     {
         public abstract bool CanHandle(object args);
 
-        public abstract Task HandleAsync(object args);
+        public abstract Task HandleAsync(object args, SuspendAndResumeArgs suspendAndResumeArgs = null);
     }
 
     internal abstract class ActivationHandler<T> : ActivationHandler
         where T : class
     {
-        protected abstract Task HandleInternalAsync(T args);
+        protected abstract Task HandleInternalAsync(T args, SuspendAndResumeArgs suspendAndResumeArgs = null);
 
-        public override async Task HandleAsync(object args)
+        public override async Task HandleAsync(object args, SuspendAndResumeArgs suspendAndResumeArgs = null)
         {
-            await HandleInternalAsync(args as T);
+            await HandleInternalAsync(args as T, suspendAndResumeArgs);
         }
 
         public override bool CanHandle(object args)

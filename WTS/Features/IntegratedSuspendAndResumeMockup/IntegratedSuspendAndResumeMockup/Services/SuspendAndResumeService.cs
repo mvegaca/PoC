@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Reflection;
 using System.Threading.Tasks;
 
-using IntegratedSuspendAndResumeMockup.Activation;
 using IntegratedSuspendAndResumeMockup.Helpers;
 
 using Windows.ApplicationModel.Activation;
@@ -18,13 +16,13 @@ namespace IntegratedSuspendAndResumeMockup.Services
     // Documentation:
     //     * How to implement and test: https://github.com/Microsoft/WindowsTemplateStudio/blob/dev/docs/features/suspend-and-resume.md
     //     * Application Lifecycle: https://docs.microsoft.com/windows/uwp/launch-resume/app-lifecycle
-    internal class SuspendAndResumeService : ActivationHandler<LaunchActivatedEventArgs>
+    internal class SuspendAndResumeService
     {
         private const string StateFilename = "SuspendAndResumeState";
 
         // TODO WTS: Subscribe to the OnBackgroundEntering event from your current Page to save the current App data.
         // Only one Page should subscribe to OnBackgroundEntering at a time, as the App will navigate to that Page on resume.
-        public event EventHandler<OnBackgroundEnteringEventArgs> OnBackgroundEntering;
+        public event EventHandler<SuspendAndResumeArgs> OnBackgroundEntering;
 
         // TODO WTS: Subscribe to the OnResuming event from the current Page
         // if you need to refresh online data when the App resumes without being terminated.
@@ -47,7 +45,7 @@ namespace IntegratedSuspendAndResumeMockup.Services
                 };
 
                 var target = OnBackgroundEntering?.Target.GetType();
-                var onBackgroundEnteringArgs = new OnBackgroundEnteringEventArgs(suspensionState, target);
+                var onBackgroundEnteringArgs = new SuspendAndResumeArgs(suspensionState, target);
 
                 OnBackgroundEntering?.Invoke(this, onBackgroundEnteringArgs);
 
@@ -69,19 +67,15 @@ namespace IntegratedSuspendAndResumeMockup.Services
         }
 
         // This method restores application state when the App is launched after termination, it navigates to the stored Page passing the recovered state data.
-        protected override async Task HandleInternalAsync(LaunchActivatedEventArgs args)
+        public async Task<SuspendAndResumeArgs> GetSuspendAndResumeArgs()
         {
-            var saveState = await ApplicationData.Current.LocalFolder.ReadAsync<OnBackgroundEnteringEventArgs>(StateFilename);
+            var saveState = await ApplicationData.Current.LocalFolder.ReadAsync<SuspendAndResumeArgs>(StateFilename);
             if (saveState?.Target != null && typeof(Page).IsAssignableFrom(saveState.Target))
             {
-                NavigationService.Navigate(saveState.Target, saveState.SuspensionState);
+                return saveState;
             }
-        }
 
-        protected override bool CanHandleInternal(LaunchActivatedEventArgs args)
-        {
-            // Application State must only be restored if the App was terminated during suspension.
-            return args.PreviousExecutionState == ApplicationExecutionState.Terminated;
+            return null;
         }
     }
 }

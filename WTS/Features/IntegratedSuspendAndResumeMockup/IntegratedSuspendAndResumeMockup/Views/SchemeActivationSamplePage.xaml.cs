@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using IntegratedSuspendAndResumeMockup.Activation;
+using IntegratedSuspendAndResumeMockup.Core.Helpers;
+using IntegratedSuspendAndResumeMockup.Services;
 using IntegratedSuspendAndResumeMockup.ViewModels;
 
 using Windows.UI.Xaml.Controls;
@@ -24,11 +26,31 @@ namespace IntegratedSuspendAndResumeMockup.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            var parameters = e.Parameter as Dictionary<string, string>;
-            if (parameters != null)
+            if (e.Parameter is ActivationHandlerArgs args)
             {
-                ViewModel.Initialize(parameters);
+                if (args.NavigationParameter is Dictionary<string, string> activationParams)
+                {
+                    ViewModel.Initialize(activationParams);
+                }
+
+                if (args.SuspensionState != null)
+                {
+                    ViewModel.Text = args.SuspensionState.Data.ToString();
+                }
             }
+
+            Singleton<SuspendAndResumeService>.Instance.OnBackgroundEntering += OnBackgroundEntering;
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            Singleton<SuspendAndResumeService>.Instance.OnBackgroundEntering -= OnBackgroundEntering;
+        }
+
+        public void OnBackgroundEntering(object sender, SuspendAndResumeArgs e)
+        {
+            e.SuspensionState.Data = ViewModel.Text;
         }
     }
 }

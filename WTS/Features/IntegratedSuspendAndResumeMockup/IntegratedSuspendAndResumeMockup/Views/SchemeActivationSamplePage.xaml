@@ -18,7 +18,9 @@
         Margin="{StaticResource MediumLeftRightMargin}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="200" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="200" />
         </Grid.RowDefinitions>
         <TextBlock
             Grid.Row="0"
@@ -29,5 +31,12 @@
                 ItemsSource="{x:Bind ViewModel.Parameters}"
                 ItemTemplate="{StaticResource ActivationParameterDateTemplate}" />
         </ScrollViewer>
+        <TextBlock
+            Grid.Row="2"
+            Text="The text you write here will be preserved using suspend and resume." />
+        <TextBox
+            Grid.Row="3"
+            Margin="0,24,0,0"
+            Text="{x:Bind ViewModel.Text, Mode=TwoWay}" />
     </Grid>
 </Page>

@@ -101,6 +101,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activation\ActivationHandler.cs" />
+    <Compile Include="Activation\ActivationHandlerArgs.cs" />
+    <Compile Include="Activation\CortanaActivationHandler.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
   </ItemGroup>
@@ -217,7 +219,7 @@
     <Compile Include="Services\SuspendAndResumeService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Services\OnBackgroundEnteringEventArgs.cs" />
+    <Compile Include="Services\SuspendAndResumeArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\SuspensionState.cs" />
