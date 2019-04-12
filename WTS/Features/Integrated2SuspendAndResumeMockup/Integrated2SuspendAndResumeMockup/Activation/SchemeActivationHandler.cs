@@ -1,34 +1,22 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using IntegratedSuspendAndResumeMockup.Services;
+using Integrated2SuspendAndResumeMockup.Services;
 
 using Windows.ApplicationModel.Activation;
 
-namespace IntegratedSuspendAndResumeMockup.Activation
+namespace Integrated2SuspendAndResumeMockup.Activation
 {
     internal class SchemeActivationHandler : ActivationHandler<ProtocolActivatedEventArgs>
     {
         // By default, this handler expects URIs of the format 'wtsapp:sample?paramName1=paramValue1&paramName2=paramValue2'
-        protected override async Task HandleInternalAsync(ProtocolActivatedEventArgs args, SuspendAndResumeArgs suspendAndResumeArgs = null)
+        protected override async Task HandleInternalAsync(ProtocolActivatedEventArgs args)
         {
             // Create data from activation Uri in ProtocolActivatedEventArgs
             var data = new SchemeActivationData(args.Uri);
             if (data.IsValid)
             {
-                var activationArgs = new ActivationHandlerArgs()
-                {
-                    NavigationParameter = data.Parameters
-                };
-
-                if (data.PageType == suspendAndResumeArgs.Target)
-                {
-                    activationArgs.SuspensionState = suspendAndResumeArgs.SuspensionState;
-                }
-
-                NavigationService.Navigate(data.PageType, activationArgs);
-
-
+                NavigationService.Navigate(data.PageType, data.Parameters);
             }
             else if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
