@@ -44,8 +44,11 @@ namespace Integrated2SuspendAndResumeMockup.Views
 
         private void OnDataRestored(object sender, SuspendAndResumeArgs suspendAndResumeArgs)
         {
-            var suspensionState = suspendAndResumeArgs.SuspensionState;
-            ViewModel.Text = suspensionState.Data.ToString();
+            if (suspendAndResumeArgs.Target == typeof(SchemeActivationSamplePage))
+            {
+                var suspensionState = suspendAndResumeArgs.SuspensionState;
+                ViewModel.Text = suspensionState.Data.ToString();
+            }
         }
 
         public void OnBackgroundEntering(object sender, SuspendAndResumeArgs e)

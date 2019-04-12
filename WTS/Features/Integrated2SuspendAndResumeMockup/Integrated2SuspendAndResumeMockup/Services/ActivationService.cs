@@ -96,6 +96,7 @@ namespace Integrated2SuspendAndResumeMockup.Services
         private IEnumerable<ActivationHandler> GetActivationHandlers()
         {
             yield return Singleton<SchemeActivationHandler>.Instance;
+            yield return Singleton<SuspendAndResumeService>.Instance;
         }
 
         private bool IsInteractive(object args)

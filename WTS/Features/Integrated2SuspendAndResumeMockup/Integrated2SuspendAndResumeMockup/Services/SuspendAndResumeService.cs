@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-
+using Integrated2SuspendAndResumeMockup.Activation;
 using Integrated2SuspendAndResumeMockup.Helpers;
 
 using Windows.ApplicationModel.Activation;
@@ -16,7 +16,7 @@ namespace Integrated2SuspendAndResumeMockup.Services
     // Documentation:
     //     * How to implement and test: https://github.com/Microsoft/WindowsTemplateStudio/blob/dev/docs/features/suspend-and-resume.md
     //     * Application Lifecycle: https://docs.microsoft.com/windows/uwp/launch-resume/app-lifecycle
-    internal class SuspendAndResumeService
+    internal class SuspendAndResumeService : ActivationHandler<LaunchActivatedEventArgs>
     {
         private const string StateFilename = "SuspendAndResumeState";
 
@@ -67,7 +67,21 @@ namespace Integrated2SuspendAndResumeMockup.Services
         {
             OnResuming?.Invoke(this, EventArgs.Empty);
         }
-        
+
+        protected override bool CanHandleInternal(LaunchActivatedEventArgs args)
+        {
+            return args.PreviousExecutionState == ApplicationExecutionState.Terminated;
+        }
+
+        protected override async Task HandleInternalAsync(LaunchActivatedEventArgs args)
+        {
+            var saveState = await GetSuspendAndResumeData();
+            if (saveState != null && typeof(Page).IsAssignableFrom(saveState.Target))
+            {
+                NavigationService.Navigate(saveState.Target);
+            }
+        }
+
         public async Task RestoreSuspendAndResumeData()
         {
             var saveState = await GetSuspendAndResumeData();
